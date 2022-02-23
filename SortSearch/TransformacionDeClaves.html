@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>5.5. Transformación de claves (hashing) &#8212; Solución de problemas con algoritmos y estructuras de datos</title>
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/parsons.css?v=2F3E13EE" />
+    <link rel="stylesheet" type="text/css" href="../_static/js_lib/prettify.css?v=2A364B6B" />
+    <link rel="stylesheet" type="text/css" href="../_static/video.css?v=-1AC7A4C5" />
+    <link rel="stylesheet" type="text/css" href="../_static/pytutor.css?v=239FC54E" />
+    <link rel="stylesheet" type="text/css" href="../_static/modal-basic.css?v=-75E5BD1C" />
+    <link rel="stylesheet" type="text/css" href="../_static/dragndrop.css?v=-46455F2F" />
+    <link rel="stylesheet" type="text/css" href="../_static/fitb.css?v=3BA0E63E" />
+    <link rel="stylesheet" type="text/css" href="../_static/webgldemo.css?v=B36B48D" />
+    <link rel="stylesheet" type="text/css" href="../_static/webglinteractive.css?v=-6EF20E1F" />
+    <link rel="stylesheet" type="text/css" href="../_static/codemirror.css?v=1CE53237" />
+    <link rel="stylesheet" type="text/css" href="../_static/datafile.css?v=-3E7B1476" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabbedstuff.css?v=424F1CC9" />
+    <link rel="stylesheet" type="text/css" href="../_static/reveal.css?v=4A81D381" />
+    <link rel="stylesheet" type="text/css" href="../_static/showEval.css?v=C6382F3" />
+    <link rel="stylesheet" type="text/css" href="../_static/activecode.css?v=-B8E06A5" />
+    <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=-7F7467D6" />
+    <link rel="stylesheet" type="text/css" href="../_static/matrixeq.css?v=58BC228F" />
+    <link rel="stylesheet" type="text/css" href="../_static/clickable.css?v=58C4E18A" />
+    <link rel="stylesheet" type="text/css" href="../_static/poll.css?v=-1DDF53CD" />
+    <link rel="stylesheet" href="../_static/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/user-highlights.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/runestone-custom-sphinx-bootstrap.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/runestonebase.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js_lib/prettify.js?v=-358176D8"></script>
+    <script type="text/javascript" src="../_static/js_lib/hammer.min.js?v=73056367"></script>
+    <script type="text/javascript" src="../_static/parsons.js?v=-6C1000C7"></script>
+    <script type="text/javascript" src="../_static/timedparsons.js?v=2EEA9E5A"></script>
+    <script type="text/javascript" src="../_static/runestonevideo.js?v=53E888DE"></script>
+    <script type="text/javascript" src="../_static/d3.v2.min.js?v=836E01C"></script>
+    <script type="text/javascript" src="../_static/jquery.ba-bbq.min.js?v=-49B30F58"></script>
+    <script type="text/javascript" src="../_static/jquery.jsPlumb-1.3.10-all-min.js?v=42F9EBEA"></script>
+    <script type="text/javascript" src="../_static/pytutor.js?v=-7D4FDD47"></script>
+    <script type="text/javascript" src="../_static/codelens.js?v=-354132B7"></script>
+    <script type="text/javascript" src="../_static/dragndrop.js?v=2B6403E8"></script>
+    <script type="text/javascript" src="../_static/timeddnd.js?v=378F237E"></script>
+    <script type="text/javascript" src="../_static/fitb.js?v=-71BF18ED"></script>
+    <script type="text/javascript" src="../_static/timedfitb.js?v=2AA17071"></script>
+    <script type="text/javascript" src="../_static/codemirror.js?v=-6B0AAD37"></script>
+    <script type="text/javascript" src="../_static/xml.js?v=236EDFF7"></script>
+    <script type="text/javascript" src="../_static/css.js?v=623153CE"></script>
+    <script type="text/javascript" src="../_static/htmlmixed.js?v=33B91944"></script>
+    <script type="text/javascript" src="../_static/javascript.js?v=6F38CA04"></script>
+    <script type="text/javascript" src="../_static/webglinteractive.js?v=2B768384"></script>
+    <script type="text/javascript" src="../_static/FileSaver.min.js?v=-7BF73669"></script>
+    <script type="text/javascript" src="../_static/Blob.js?v=AEC2447"></script>
+    <script type="text/javascript" src="../_static/skulpt.min.js?v=-238537EB"></script>
+    <script type="text/javascript" src="../_static/skulpt-stdlib.js?v=48A5D93E"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2/build/vega.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@2.5.0/build/vega-lite.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@3.14.0/build/vega-embed.js"></script>
+    <script type="text/javascript" src="../_static/datafile.js?v=3ED1A80C"></script>
+    <script type="text/javascript" src="../_static/shortanswer.js?v=5EB6170D"></script>
+    <script type="text/javascript" src="../_static/timed_shortanswer.js?v=-4C5EE829"></script>
+    <script type="text/javascript" src="../_static/tabbedstuff.js?v=5BE6106"></script>
+    <script type="text/javascript" src="../_static/reveal.js?v=112CBFA2"></script>
+    <script type="text/javascript" src="../_static/showEval.js?v=-3A31F37F"></script>
+    <script type="text/javascript" src="../_static/jquery.highlight.js?v=-E3B6938"></script>
+    <script type="text/javascript" src="../_static/bookfuncs.js?v=21EFC8E1"></script>
+    <script type="text/javascript" src="../_static/python.js?v=14A28F1F"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/CLDRPluralRuleParser.js?v=599B42B0"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.js?v=-775EBCF1"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.messagestore.js?v=-51EA5B5F"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.fallbacks.js?v=-75420181"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.language.js?v=747279FF"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.parser.js?v=7B020E13"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.emitter.js?v=660E85C3"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.emitter.bidi.js?v=54B21948"></script>
+    <script type="text/javascript" src="../_static/activecode-i18n.en.js?v=3FBAE230"></script>
+    <script type="text/javascript" src="../_static/activecode.js?v=-605A8C1F"></script>
+    <script type="text/javascript" src="../_static/clike.js?v=2DCE0756"></script>
+    <script type="text/javascript" src="../_static/timed_activecode.js?v=5150FA78"></script>
+    <script type="text/javascript" src="../_static/mchoice.js?v=-7CD635AB"></script>
+    <script type="text/javascript" src="../_static/timedmc.js?v=-4FEF5BA9"></script>
+    <script type="text/javascript" src="../_static/timed.js?v=6789FE30"></script>
+    <script type="text/javascript" src="../_static/matrixeq.js?v=-29B305A6"></script>
+    <script type="text/javascript" src="../_static/animationbase.js?v=-5FBC3C59"></script>
+    <script type="text/javascript" src="../_static/clickable.js?v=-6A9F19A2"></script>
+    <script type="text/javascript" src="../_static/timedclickable.js?v=-6C6763DD"></script>
+    <script type="text/javascript" src="../_static/poll.js?v=6C59AE9F"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <script type="text/javascript" src="../_static/waypoints.min.js"></script>
+    <script type="text/javascript" src="../_static/rangy-core.js"></script>
+    <script type="text/javascript" src="../_static/rangy-textrange.js"></script>
+    <script type="text/javascript" src="../_static/rangy-cssclassapplier.js"></script>
+    <script type="text/javascript" src="../_static/user-highlights.js"></script>
+    <script type="text/javascript" src="../_static/jquery.idle-timer.js"></script>
+    <script type="text/javascript" src="../_static/processing-1.4.1.min.js"></script>
+    <script type="text/javascript" src="../_static/jquery.hotkey.js"></script>
+    <script type="text/javascript" src="../_static/jquery-migrate-1.2.1.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.6. Ordenamiento" href="Ordenamiento.html" />
+    <link rel="prev" title="5.4. La búsqueda binaria" href="LaBusquedaBinaria.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<script type="text/javascript">
+  eBookConfig = {};
+  eBookConfig.host = 'https://runestone.academy' ? 'https://runestone.academy' : 'http://127.0.0.1:8000';
+  eBookConfig.app = eBookConfig.host+'/runestone';
+  eBookConfig.ajaxURL = eBookConfig.app+'/ajax/';
+  eBookConfig.course = 'pythoned';
+  eBookConfig.logLevel = 10;
+  eBookConfig.loginRequired = false;
+  eBookConfig.build_info = "pre_spring";
+  eBookConfig.isLoggedIn = false;
+  eBookConfig.useRunestoneServices = true;
+  eBookConfig.python3 = true;
+  eBookConfig.basecourse = 'pythoned';
+  eBookConfig.runestone_version = '3.4.5';
+</script>
+
+<div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+  </head><body>
+
+
+<!-- Begin navbar -->
+<div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+  <div class="container">
+
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type='button' class='navbar-toggle' data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <div>
+        <a class="brand-logo" style='background: transparent url("../_static/img/logo_small.png") no-repeat 0px 0px;' href="/runestone/default/user/login">&nbsp; </a>
+        <a class="navbar-brand" href="../index.html">Solución de problemas con algoritmos y estructuras de datos</a>
+      </div>
+    </div>
+
+    <div class="navbar-collapse collapse navbar-ex1-collapse">
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <li class="divider-vertical"></li>
+
+        <!-- social media dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-share-alt" style="opacity: 0.9"></i>
+          </a>
+          <ul class="dropdown-menu social-menu">
+              <li>
+                <div>
+                  <b>Runestone in social media:</b>
+                </div>
+                <a href="https://twitter.com/iRunestone" class="twitter-follow-button" data-show-count="true">Follow @iRunestone</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <div class="fb-like" data-href="https://www.facebook.com/RunestoneInteractive" data-send="false" data-layout="button_count" data-width="300" data-show-faces="false" data-font="arial"></div>
+              </li>
+
+              <li class="divider"></li>
+              <li>
+                <div>
+                  <b>Help support us:</b>
+                </div>
+                <div>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                  <input type="hidden" name="cmd" value="_s-xclick">
+                  <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAcrkqh1hn3lYqIpfXxNqe1T82EhXzCJGy1yMAmklpyZshyMkfDGe1Bhx+iwyGeoYRTTyphFmP+9M3NyO0+Q5XdHxgZPx/zYjjBxlZHgEV6jhE8bN2fHkkPf0VHfz0a0QQylQOPlKiOTZV7B37Jpk6yM47oVZ1tG/KNm0NkfmB76DELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIi0GmFfOlcjuAgZBbYOo9UO+CpMQa+PYqwsUmUnJvXIImeMeNI3KVTUx5Cfk9gNMo3WzPeiB5IqZo9nRAQ0mf1qL2ecLeB5tidM+lgBUhOxfj3/FecpnVFa0263gp4g+PLw8jzhvVRdUon1K3SeO1Rzh23fIRKwnrD6btt73uwtj0sl3tGd8qz+6GIcwPDdRk9VcUffiBJT/ZagKgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xMzExMDMxMzQxMzFaMCMGCSqGSIb3DQEJBDEWBBRDJF8w+zsMr7FSk+pwinB5f5D4rzANBgkqhkiG9w0BAQEFAASBgHw1LMHpkpaqHIvDGdFE0eG+2mZlmMnUeDCBhQlbc7QMzFQYKTV94NfaebBO4PmNdADe1rq4WidSRZZbE7CzkX9IGENYnBTWY0hb2l0lGdGrJdGeWyV3ekg9WVaFMMumrekds96h3Cx7dGz2kWDzIai2iEXE/qoE+xpkyXAYZNV3-----END PKCS7-----
+                  ">
+                  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                  </form>
+
+                </div>
+              </li>
+          </ul>
+        </li>
+        <!-- end social media dropdown -->
+
+        <li class="divider-vertical"></li>
+
+        <!-- search dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-search" style='opacity:0.9;'></i>
+          </a>
+          <ul class='dropdown-menu'>
+            
+                <li><a href='../index.html'>Table of Contents</a></li>
+            
+            <li><a href='/runestone/static/pythoned/genindex.html'>Book Index</a></li>
+            <li class="divider"></li>
+            <li id="scratch_ac_link"><a href="javascript:ACFactory.toggleScratchActivecode()">Scratch ActiveCode</a></li>
+            <li class="divider"></li>
+            <li style="width: 240px;">
+              <form class="navbar-search" style="margin:10px;" action="../search.html" method="get">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="q" placeholder="Search this book" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" style="margin:0;" type="submit">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                  </span>
+                </div><!-- /input-group -->
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+            </li>
+          </ul>
+        </li>
+        <!-- end search dropdown -->
+
+        <li class="divider-vertical"></li>
+
+        
+        <!-- user account dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-user" style="opacity:0.9;"></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <li><span class='loggedinuser'></span></li>
+            <li class="divider"></li>
+            <li><a href='/runestone/default/courses'>Change Course</a></li>
+            <!--
+            <li class="divider"></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/initiateGroup' id="joinGroupLink">Join a Study Group</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/schedule' id="groupScheduleLink">Group Schedule</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/newschedule' id="newChapterLink">Schedule New Chapter</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/manageGroup' id="manageGroupLink">Manage Group</a></li> -->
+			<li class="divider"></li>
+            <li><a href='https://runestone.academy/runestone/admin/index'>Instructor's Page</a></li>
+            <li><a href='https://runestone.academy/runestone/assignments/index'>Progress Page</a></li>
+            <li class="divider"></li>
+            <li><a href="https://runestone.academy/runestone/default/user/profile" id="profilelink">Edit Profile</a></li>
+            <li><a href="https://runestone.academy/runestone/default/user/change_password" id="passwordlink">Change Password</a></li>
+            <li><a href="https://runestone.academy/runestone/default/user/register" id="registerlink">Register</a></li>
+            <li class='loginout'><a href='#'>Login</a></li> <!-- correct link populated by addNavbarLoginLink() -->
+          </ul>
+        </li>
+        <!-- end user account dropdown -->
+        
+        <li class="divider-vertical"></li>
+
+        <!-- help menu dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-question-sign" style="opacity:0.9;"></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <li><a href='/runestone/static/pythoned/navhelp.html'>Navigation Help</a></li>
+            <li><a href='/runestone/static/overview/instructor.html'>Help for Instructors</a></li>
+            <li class="divider"></li>
+            <li><a href='http://runestoneinteractive.org'>About Runestone</a></li>
+            <li><a href='/runestone/default/reportabug?course=pythoned&page=TransformacionDeClaves'>Report A Problem</a></li>
+          </ul>
+        </li>
+        <!-- end help menu dropdown -->
+
+        <li class="divider-vertical"></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="divider-vertical"></li>
+        
+          <li class="dropdown globaltoc-container">
+  <a href="../index.html"
+     class="dropdown-toggle"
+     data-toggle="dropdown">Cap&#237;tulos <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+    ><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/toctree.html">1. Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AlgorithmAnalysis/toctree.html">2. Análisis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicDS/toctree.html">3. Estructuras de datos básicas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Recursion/toctree.html">4. Recursividad</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="toctree.html">5. Ordenamiento y búsqueda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Trees/toctree.html">6. Árboles y algoritmos de árboles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Graphs/toctree.html">7. Grafos y algoritmos de grafos</a></li>
+</ul>
+</ul>
+</li>
+          <li class="divider-vertical"></li>
+        
+        <!--
+        
+          
+  <li id="relations-prev" title="Previous Chapter - 5.4. La búsqueda binaria" data-toggle="tooltip">
+    <a href="LaBusquedaBinaria.html" >
+      <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
+    </a>
+  </li>
+  
+  <li id="relations-next" title='Next Chapter - 5.6. Ordenamiento' data-toggle="tooltip" >
+    <a href="Ordenamiento.html" >
+      <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
+    </a>
+  </li>
+  <li class="divider-vertical"></li>
+
+<script type="text/javascript">
+  opts = {'placement':'bottom',
+          'selector': '',
+          'delay': { show: 100, hide: 50}
+         };
+
+  $('#relations-prev').tooltip(opts);
+  $('#relations-next').tooltip(opts);
+</script>
+        -->
+        
+          <li></li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container" id="continue-reading"></div>
+
+<div class="container" id="main-content">
+  
+  <div class="section" id="transformacion-de-claves-hashing">
+<h1>5.5. Transformación de claves (hashing)<a class="headerlink" href="#transformacion-de-claves-hashing" title="Permalink to this headline">¶</a></h1>
+<p>En secciones anteriores pudimos hacer mejoras en nuestros algoritmos de búsqueda aprovechando la información acerca de dónde se almacenan los ítems en la colección con respecto a los demás. Por ejemplo, al saber que se ordenó una lista, podríamos buscar en tiempo logarítmico usando una búsqueda binaria. En esta sección intentaremos ir un paso más allá construyendo una estructura de datos en la que se pueda buscar en tiempo <span class="math notranslate nohighlight">\(O(1)\)</span>. Este concepto se conoce como búsqueda por <strong>transformación de claves (o hashing en inglés)</strong>.</p>
+<p>Para hacer esto, necesitaremos saber aún más sobre dónde podrían estar los ítems cuando vamos a buscarlos en la colección. Si cada ítem está donde debe estar, entonces la búsqueda puede usar una sola comparación para descubrir la presencia de un ítem. Veremos, sin embargo, que éste no suele ser el caso.</p>
+<p>Una <strong>tabla hash</strong> es una colección de ítems que se almacenan de tal manera que sea más fácil encontrarlos más tarde. Cada posición de la tabla hash, a menudo llamada una <strong>ranura</strong>, puede contener un ítem y se llama por un valor entero comenzando en 0. Por ejemplo, tendremos una ranura llamada 0, una ranura llamada 1, una ranura llamada 2, y así sucesivamente. Inicialmente, la tabla hash no contiene ningún ítem por lo que cada ranura está vacía. Podemos implementar una tabla hash usando una lista con cada ítem inicializado con el valor especial de Python <code class="docutils literal notranslate"><span class="pre">None</span></code>. La <a class="reference internal" href="#fig-hashtable1"><span class="std std-ref">Figura 4</span></a> muestra una tabla hash de tamaño <span class="math notranslate nohighlight">\(m=11\)</span>. En otras palabras, hay <em>m</em> ranuras en la tabla, con nombres de 0 a 10.</p>
+<div class="figure align-center" id="id1">
+<span id="fig-hashtable1"></span><img alt="../_images/hashtable.png" src="../_images/hashtable.png" />
+<p class="caption"><span class="caption-text">Figura 4: Tabla hash con 11 ranuras vacías</span></p>
+<div class="legend">
+Figura 4: Tabla hash con 11 ranuras vacías</div>
+</div>
+<p>La correspondencia entre un ítem y la ranura a donde pertenece ese ítem en la tabla hash se denomina la función <strong>hash</strong>. La función hash tomará cualquier ítem de la colección y devolverá un número entero en el rango de nombres de las ranuras, entre 0 y <em>m</em>-1. Supongamos que tenemos el conjunto de ítems enteros 54, 26, 93, 17, 77 y 31. Nuestra primera función hash, a veces denominada “método del residuo”, simplemente toma un ítem y lo divide por el tamaño de la tabla, devolviendo el residuo como su valor hash (<span class="math notranslate nohighlight">\(h(item)=item \% 11\)</span>). La <a class="reference internal" href="#tbl-hashvalues1"><span class="std std-ref">Tabla 4</span></a> da todos los valores hash para nuestros ítems de ejemplo. Tenga en cuenta que este método del residuo (módulo aritmético) estará típicamente presente en alguna forma en todas las funciones hash, ya que el resultado debe estar en el rango de nombres de las ranuras.</p>
+<span id="tbl-hashvalues1"></span><table border="1" class="docutils" id="id2">
+<caption><span class="caption-text"><strong>Tabla 4: Función hash simple usando los residuos</strong></span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Ítem</strong></th>
+<th class="head"><strong>Valor hash</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>54</td>
+<td>10</td>
+</tr>
+<tr class="row-odd"><td>26</td>
+<td>4</td>
+</tr>
+<tr class="row-even"><td>93</td>
+<td>5</td>
+</tr>
+<tr class="row-odd"><td>17</td>
+<td>6</td>
+</tr>
+<tr class="row-even"><td>77</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>31</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>Una vez calculados los valores hash, podemos insertar cada ítem en la tabla hash en la posición designada como se muestra en la <a class="reference internal" href="#fig-hashtable2"><span class="std std-ref">Figura 5</span></a>. Note que 6 de las 11 ranuras están ocupadas. Esto se conoce como el <strong>factor de carga</strong>, y es denotado comúnmente por <span class="math notranslate nohighlight">\(\lambda = \frac {numeroDeItems}{tamanoTabla}\)</span>. Para este ejemplo, <span class="math notranslate nohighlight">\(\lambda = \frac {6}{11}\)</span>.</p>
+<div class="figure align-center" id="id3">
+<span id="fig-hashtable2"></span><img alt="../_images/hashtable2.png" src="../_images/hashtable2.png" />
+<p class="caption"><span class="caption-text">Figura 5: Tabla hash con seis ítems</span></p>
+<div class="legend">
+Figura 5: Tabla hash con seis ítems</div>
+</div>
+<p>Ahora, cuando queramos buscar un ítem, simplemente usamos la función hash para calcular el nombre de la ranura para el ítem y luego verificamos la tabla hash para ver si está presente. Esta operación de búsqueda es <span class="math notranslate nohighlight">\(O(1)\)</span>, ya que se requiere una cantidad de tiempo constante para calcular el valor hash y luego indizar la tabla hash en esa ubicación. Si todo está donde debería estar, hemos encontrado un algoritmo de búsqueda de tiempo constante.</p>
+<p>Usted probablemente ya puede ver que esta técnica sólo va a funcionar si a cada ítem le corresponde una ubicación exclusiva en la tabla hash. Por ejemplo, si el ítem 44 hubiera sido el siguiente ítem de nuestra colección, tendría un valor hash de 0 (<span class="math notranslate nohighlight">\(44 \% 11 = 0\)</span>). Dado que 77 también tenía un valor hash de 0, tendríamos un problema. Según la función hash, dos o más ítems necesitarían estar en la misma ranura. Esto se conoce como <strong>colisión</strong> (también se puede llamar un “choque”). Evidentemente, las colisiones crean un problema para la técnica de búsqueda por transformación de claves. Las discutiremos en detalle más adelante.</p>
+<div class="section" id="funciones-hash">
+<h2>5.5.1. Funciones hash<a class="headerlink" href="#funciones-hash" title="Permalink to this headline">¶</a></h2>
+<p>Dada una colección de ítems, una función hash que asigna cada ítem en una ranura única se conoce como una <strong>función hash perfecta</strong>. Si conociéramos los ítems y la colección nunca cambiara, entonces sería posible construir una función hash perfecta (consulte los ejercicios para obtener más información sobre las funciones hash perfectas). Desafortunadamente, dada una colección arbitraria de ítems, no existe una forma sistemática de construir una función hash perfecta. Afortunadamente, no necesitamos que la función hash sea perfecta para aún obtener una mayor eficiencia de desempeño.</p>
+<p>Una forma de tener siempre una función hash perfecta es aumentar el tamaño de la tabla hash para que cada valor posible se pueda acomodar en el rango de ítems. Esto garantiza que cada ítem tendrá una ranura exclusiva. Aunque esto es práctico para un número pequeño de ítems, no es factible cuando el número de ítems posibles es grande. Por ejemplo, si los ítems fueran números de Seguridad Social de nueve dígitos, este método requeriría casi mil millones de ranuras. Si sólo queremos almacenar datos para un grupo de 25 estudiantes, estaríamos desperdiciando una enorme cantidad de memoria.</p>
+<p>Nuestro objetivo es crear una función hash que minimice el número de colisiones, sea fácil de calcular y distribuya uniformemente los ítems en la tabla hash. Hay varias maneras comunes de extender el método simple del residuo. Vamos a considerar aquí algunas de ellas.</p>
+<p>El <strong>método de plegado</strong> para construir las funciones hash comienza dividiendo el ítem en partes del mismo tamaño (la última parte puede que no sea del mismo tamaño). Luego se suman estas partes para obtener el valor hash resultante. Por ejemplo, si nuestro ítem era el número telefónico 436-555-4601, tomaríamos los dígitos y los dividiríamos en grupos de 2 (43,65,55,46,01). Después de la suma <span class="math notranslate nohighlight">\(43+65+55+46+01\)</span>, obtendremos 210. Si asumimos que nuestra tabla hash tiene 11 ranuras, entonces necesitamos realizar el paso adicional de dividir entre 11 y recordar el residuo. En este caso <span class="math notranslate nohighlight">\(210\ \%\ 11\)</span> es 1, por lo que el número telefónico 436-555-4601 se asigna a la ranura 1. Algunos métodos de plegado van un paso más allá e invierten cada una de las otras partes antes de la suma. Para el ejemplo anterior obtendríamos <span class="math notranslate nohighlight">\(43+56+55+64+01 = 219\)</span> lo cual da <span class="math notranslate nohighlight">\(219\ \%\ 11 = 10\)</span>.</p>
+<p>Otra técnica numérica para construir una función hash se denomina el método del <strong>centro del cuadrado</strong>. En primer lugar elevamos el ítem al cuadrado, y luego extraemos cierta parte de los dígitos resultantes. Por ejemplo, si el ítem fuera 44, primero calcularíamos <span class="math notranslate nohighlight">\(44^{2} = 1,936\)</span>. Extrayendo los dos dígitos centrales, 93, y realizando el paso restante, obtendríamos 5 (<span class="math notranslate nohighlight">\(93\ \%\ 11\)</span>). La <a class="reference internal" href="#tbl-hashvalues2"><span class="std std-ref">Tabla 5</span></a> muestra las correspondencias de los ítems tanto con el método del residuo como con el método del centro del cuadrado. Verifique que usted entiende cómo se calcularon estos valores.</p>
+<span id="tbl-hashvalues2"></span><table border="1" class="docutils" id="id4">
+<caption><span class="caption-text"><strong>Tabla 5: Comparación de los métodos del residuo y del centro del cuadrado</strong></span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="31%" />
+<col width="27%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Ítem</strong></th>
+<th class="head"><strong>Residuo</strong></th>
+<th class="head"><strong>Centro del cuadrado</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>54</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr class="row-odd"><td>26</td>
+<td>4</td>
+<td>7</td>
+</tr>
+<tr class="row-even"><td>93</td>
+<td>5</td>
+<td>9</td>
+</tr>
+<tr class="row-odd"><td>17</td>
+<td>6</td>
+<td>8</td>
+</tr>
+<tr class="row-even"><td>77</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr class="row-odd"><td>31</td>
+<td>9</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>También podemos crear funciones hash para ítems basados en caracteres tales como las cadenas. La cadena “cat” puede pensarse como una secuencia de valores ordinales.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="go">99</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="go">97</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">ord</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="go">116</span>
+</pre></div>
+</div>
+<p>Podemos entonces tomar estos tres valores ordinales, sumarlos y usar el método del residuo para obtener un valor hash (vea la <a class="reference internal" href="#fig-stringhash"><span class="std std-ref">Figura 6</span></a>). El <a class="reference internal" href="#lst-hashfunction1"><span class="std std-ref">Programa 1</span></a> muestra una función llamada <code class="docutils literal notranslate"><span class="pre">hash</span></code> que toma una cadena y un tamaño de tabla y devuelve el valor hash correspondiente en el rango de 0 a <code class="docutils literal notranslate"><span class="pre">tamanoTabla</span></code>-1.</p>
+<div class="figure align-center" id="id5">
+<span id="fig-stringhash"></span><img alt="../_images/stringhash.png" src="../_images/stringhash.png" />
+<p class="caption"><span class="caption-text">Figura 6: Transformación de claves (hashing) de una cadena usando valores ordinales</span></p>
+<div class="legend">
+Figura 6: Transformación de claves (hashing) de una cadena usando valores ordinales</div>
+</div>
+<p id="lst-hashfunction1"><strong>Programa 1</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">hash</span><span class="p">(</span><span class="n">unaCadena</span><span class="p">,</span> <span class="n">tamanoTabla</span><span class="p">):</span>
+    <span class="n">suma</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">unaCadena</span><span class="p">)):</span>
+        <span class="n">suma</span> <span class="o">=</span> <span class="n">suma</span> <span class="o">+</span> <span class="nb">ord</span><span class="p">(</span><span class="n">unaCadena</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">suma</span><span class="o">%</span><span class="n">tamanoTabla</span>
+</pre></div>
+</div>
+<p>Es interesante observar que al usar esta función hash, los anagramas siempre tendrán el mismo valor hash. Para remediar esto, podríamos usar la posición del carácter como un peso o ponderación. La <a class="reference internal" href="#fig-stringhash2"><span class="std std-ref">Figura 7</span></a> muestra una posible forma de utilizar el valor de la posición como factor de ponderación. La modificación de la función <code class="docutils literal notranslate"><span class="pre">hash</span></code> se deja como un ejercicio.</p>
+<div class="figure align-center" id="id6">
+<span id="fig-stringhash2"></span><img alt="../_images/stringhash2.png" src="../_images/stringhash2.png" />
+<p class="caption"><span class="caption-text">Figura 7: Transformación de claves de una cadena usando valores ordinales con ponderación</span></p>
+<div class="legend">
+Figura 7: Transformación de claves de una cadena usando valores ordinales con ponderación</div>
+</div>
+<p>Tal vez usted sea capaz de pensar en una serie de formas adicionales para calcular valores hash para los ítems en una colección. Lo importante de recordar es que la función hash tiene que ser eficiente para que no se convierta en la parte dominante del proceso de almacenamiento y búsqueda. Si la función hash es demasiado compleja, entonces se vuelve más trabajoso calcular el nombre de la ranura de lo que costaría simplemente hacer una búsqueda secuencial básica o una búsqueda binaria como se describió anteriormente. Esto invalidaría rápidamente el propósito de la transformación de claves.</p>
+</div>
+<div class="section" id="solucion-de-colisiones">
+<h2>5.5.2. Solución de colisiones<a class="headerlink" href="#solucion-de-colisiones" title="Permalink to this headline">¶</a></h2>
+<p>Ahora regresamos al problema de las colisiones. Cuando a dos ítems se les asigna la misma ranura, debemos contar con un método sistemático para colocar el segundo ítem en la tabla hash. Este proceso se denomina <strong>solución de colisiones</strong>. Como dijimos anteriormente, si la función hash es perfecta, nunca se producirán colisiones. Sin embargo, como esto no suele ser posible, la solución de colisiones se convierte en una parte muy importante de la transformación de claves.</p>
+<p>Un método para solucionar las colisiones examina la tabla hash e intenta encontrar otra ranura disponible para contener el ítem que causó la colisión. Una manera sencilla de hacerlo es comenzar en la posición del valor hash original y luego moverse secuencialmente a lo largo de las ranuras hasta encontrar la primera que esté vacía. Tenga en cuenta que es posible que necesite volver a la primera ranura (circularmente) para cubrir toda la tabla hash. Este proceso de solución de colisiones se conoce como <strong>direccionamiento abierto</strong> ya que intenta encontrar la siguiente ranura o dirección disponible (“abierta”) en la tabla hash. Al visitar sistemáticamente cada una de las ranuras, de una en una, estamos ejecutando una técnica de direccionamiento abierto llamada <strong>prueba lineal</strong>.</p>
+<p>La <a class="reference internal" href="#fig-linearprobing"><span class="std std-ref">Figura 8</span></a> muestra un conjunto extendido de ítems enteros según la función hash del método simple del residuo (54, 26, 93, 17, 77, 31, 44, 55, 20). La <span class="xref std std-ref">Tabla 4</span> muestra el contenido original. Cuando intentamos colocar el 44 en la ranura 0, se produce una colisión. Según la técnica de prueba lineal, miramos secuencialmente, ranura por ranura, hasta encontrar una posición disponible. En este caso, encontramos la ranura 1.</p>
+<p>Una vez más, el 55 debe ir en la ranura 0, pero debe ser colocado en la ranura 2, ya que ésa es la siguiente posición disponible. El valor final, 20, debería ubicarse en la ranura 9. Dado que la ranura 9 está llena, comenzamos a realizar la prueba lineal. Visitamos las ranuras 10, 0, 1 y 2 y finalmente encontramos una ranura vacía en la posición 3.</p>
+<div class="figure align-center" id="id7">
+<span id="fig-linearprobing"></span><img alt="../_images/linearprobing1.png" src="../_images/linearprobing1.png" />
+<p class="caption"><span class="caption-text">Figura 8: Solución de colisiones con prueba lineal</span></p>
+<div class="legend">
+Figura 8: Solución de colisiones con prueba lineal</div>
+</div>
+<p>Una vez que hemos construido una tabla hash utilizando direccionamiento abierto y prueba lineal, es esencial que utilicemos los mismos métodos para buscar ítems. Supongamos que queremos buscar el ítem 93. Cuando calculamos el valor hash, obtenemos 5. Al mirar en la ranura 5 confirmamos que está el 93, y podemos devolver <code class="docutils literal notranslate"><span class="pre">True</span></code>. ¿Qué pasaría si estamos buscando el 20? Ahora el valor hash es 9 y en la ranura 9 está almacenado el 31. No podemos simplemente devolver <code class="docutils literal notranslate"><span class="pre">False</span></code>, ya que sabemos que podría haber habido colisiones. Ahora nos vemos obligados a hacer una búsqueda secuencial, comenzando en la posición 10, buscando hasta que encontremos el ítem 20 o encontremos una ranura vacía.</p>
+<p>Una desventaja de la prueba lineal es la tendencia al <strong>agrupamiento</strong>; Los ítems tienden a agruparse en la tabla. Esto significa que si se producen muchas colisiones con el mismo valor hash, se llenará cierto número de ranuras circundantes debido a la solución mediante prueba lineal. Esto tendrá un impacto en otros ítems que estén siendo insertados, como vimos antes cuando tratamos de agregar el ítem 20. Un grupo de ítems con valor hash 0 tendrían que ser saltados para finalmente encontrar una posición disponible. Este grupo se muestra en la <a class="reference internal" href="#fig-clustering"><span class="std std-ref">Figura 9</span></a>.</p>
+<div class="figure align-center" id="id8">
+<span id="fig-clustering"></span><img alt="../_images/clustering.png" src="../_images/clustering.png" />
+<p class="caption"><span class="caption-text">Figura 9: Un grupo de ítems para la ranura 0</span></p>
+<div class="legend">
+Figura 9: Un grupo de ítems para la ranura 0</div>
+</div>
+<p>Una manera de lidiar con el agrupamiento es extender la técnica de prueba lineal de modo que en vez de buscar secuencialmente la siguiente ranura disponible, saltemos ranuras, distribuyendo de manera más uniforme los ítems que han causado colisiones. Esto potencialmente reducirá el agrupamiento que se produce. La <a class="reference internal" href="#fig-linearprobing2"><span class="std std-ref">Figura 10</span></a> muestra los ítems cuando la solución de colisiones se realiza con una prueba “más 3”. Esto significa que una vez se produzca una colisión, examinaremos cada tercera ranura hasta encontrar una que esté vacía.</p>
+<div class="figure align-center" id="id9">
+<span id="fig-linearprobing2"></span><img alt="../_images/linearprobing2.png" src="../_images/linearprobing2.png" />
+<p class="caption"><span class="caption-text">Figura 10: Solución de colisiones usando “Más 3”</span></p>
+<div class="legend">
+Figura 10: Solución de colisiones usando “Más 3”</div>
+</div>
+<p>El nombre general para este proceso de buscar otra ranura después de una colisión es <strong>transformación de claves repetida (rehashing)</strong>. Con prueba lineal simple, la función rehash es <span class="math notranslate nohighlight">\(valorHashNuevo = rehash(valorHashViejo)\)</span> donde <span class="math notranslate nohighlight">\(rehash(pos) = (pos + 1) \% tamanoDeTabla\)</span>. El rehash “más 3” se puede definir como <span class="math notranslate nohighlight">\(rehash(pos) = (pos + 3) \% tamanoDeTabla\)</span>. En general <span class="math notranslate nohighlight">\(rehash(pos) = (pos + salto) \% tamanoDeTabla\)</span>. Es importante tener en cuenta que el tamaño del “salto” debe ser tal que todas las ranuras en la tabla eventualmente sean visitadas. De lo contrario, parte de la tabla no se utilizará. Para asegurar esto, a menudo se sugiere que el tamaño de la tabla sea un número primo. Ésa es la razón por la que en nuestros ejemplos hemos estado usando 11.</p>
+<p>Una variación de la idea de la prueba lineal se denomina <strong>prueba cuadrática</strong>. En lugar de usar un valor de “salto” constante, usamos una función rehash que incrementa el valor de hash en 1, 4, 9, 16, etc. Esto significa que si el primer valor hash es <em>h</em>, los valores sucesivos son <span class="math notranslate nohighlight">\(h+1\)</span>, <span class="math notranslate nohighlight">\(h+4\)</span>, <span class="math notranslate nohighlight">\(h+9\)</span>, <span class="math notranslate nohighlight">\(h+16\)</span>, y así sucesivamente. En otras palabras, la prueba cuadrática utiliza un salto que consiste en cuadrados perfectos sucesivos. La <a class="reference internal" href="#fig-quadratic"><span class="std std-ref">Figura 11</span></a> muestra nuestros valores de ejemplo después de que son ubicados utilizando esta técnica.</p>
+<div class="figure align-center" id="id10">
+<span id="fig-quadratic"></span><img alt="../_images/quadratic.png" src="../_images/quadratic.png" />
+<p class="caption"><span class="caption-text">Figura 11: Solución de colisiones usando prueba cuadrática</span></p>
+<div class="legend">
+Figura 11: Solución de colisiones usando prueba cuadrática</div>
+</div>
+<p>Un método alternativo para manejar el problema de colisiones es permitir que cada ranura contenga una referencia a una colección (o cadena) de ítems. El <strong>encadenamiento</strong> permite que muchos ítems existan en la misma ubicación en la tabla hash. Cuando ocurren colisiones, el elemento todavía se coloca en la ranura adecuada de la tabla hash. A medida que más y más ítems obtienen un valor hash a la misma ubicación, aumenta la dificultad de buscar el ítem en la colección. La <a class="reference internal" href="#fig-chaining"><span class="std std-ref">Figura 12</span></a> muestra los ítems a medida que se agregan a una tabla hash que utiliza encadenamiento para resolver las colisiones.</p>
+<div class="figure align-center" id="id11">
+<span id="fig-chaining"></span><img alt="../_images/chaining.png" src="../_images/chaining.png" />
+<p class="caption"><span class="caption-text">Figura 12: Solución de colisiones con encadenamiento</span></p>
+<div class="legend">
+Figura 12: Solución de colisiones con encadenamiento</div>
+</div>
+<p>Cuando queremos buscar un ítem, usamos la función hash para generar la ranura donde debe residir. Puesto que cada ranura contiene una colección, utilizamos una técnica de búsqueda para decidir si el elemento está presente. La ventaja es que en promedio es probable que haya muchos menos ítems en cada ranura, así que la búsqueda es quizás más eficiente. Examinaremos el análisis de la transformación de claves al final de esta sección.</p>
+<div class="admonition-autoevaluacion admonition">
+<p class="first admonition-title">Autoevaluación</p>
+
+            <div class="runestone alert alert-warning">
+            <ul data-component="multiplechoice" data-multipleanswers="false"  id="HASH_1">
+            Q-1: En una tabla hash de tamaño 13, ¿qué índices de posición corresponden a las siguientes dos claves?: 27,  130
+            <li data-component="answer"  id="HASH_1_opt_a">1, 10</li><li data-component="feedback" id="HASH_1_opt_a">Tenga cuidado en usar el residuo, no la división entera</li>
+            
+            <li data-component="answer"  id="HASH_1_opt_b">13, 0</li><li data-component="feedback" id="HASH_1_opt_b">No divida entre dos, use el operador módulo.</li>
+            
+            <li data-component="answer" data-correct id="HASH_1_opt_c">1, 0</li><li data-component="feedback" id="HASH_1_opt_c">27 % 13 == 1 y 130 % 13 == 0</li>
+            
+            <li data-component="answer"  id="HASH_1_opt_d">2, 3</li><li data-component="feedback" id="HASH_1_opt_d">Use el operador módulo</li>
+            
+
+            </ul>
+            </div>
+            
+            <div class="runestone alert alert-warning">
+            <ul data-component="multiplechoice" data-multipleanswers="false"  id="HASH_2">
+            Q-2: Supongamos que a usted se le da el siguiente conjunto de claves para insertar en una tabla hash que puede contener exactamente 11 valores: 113, 117, 97, 100, 114, 108, 116, 105, 99 ¿Cuál de las siguientes opciones demuestra mejor el contenido de la tabla hash después de que se han insertado todas las claves utilizando la prueba lineal?
+            <li data-component="answer"  id="HASH_2_opt_a">100, __, __, 113, 114, 105, 116, 117, 97, 108, 99</li><li data-component="feedback" id="HASH_2_opt_a">Parece que usted puede haber estado aplicando aritmética módulo 2. Usted necesita utilizar el tamaño de la tabla hash como valor de la operación módulo.</li>
+            
+            <li data-component="answer" data-correct id="HASH_2_opt_b">99, 100, __, 113, 114, __, 116, 117, 105, 97, 108</li><li data-component="feedback" id="HASH_2_opt_b">El uso de aritmética módulo 11 y de prueba lineal da estos valores</li>
+            
+            <li data-component="answer"  id="HASH_2_opt_c">100, 113, 117, 97, 14, 108, 116, 105, 99, __, __</li><li data-component="feedback" id="HASH_2_opt_c">Parece que usted puede haber estado aplicando aritmética módulo 10, use el tamaño de la tabla.</li>
+            
+            <li data-component="answer"  id="HASH_2_opt_d">117, 114, 108, 116, 105, 99, __, __, 97, 100, 113</li><li data-component="feedback" id="HASH_2_opt_d">Tenga cuidado en usar la operación módulo, no la división entera</li>
+            
+
+            </ul>
+            </div>
+            </div>
+</div>
+<div class="section" id="implementacion-del-tipo-abstracto-de-datos-vector-asociativo">
+<h2>5.5.3. Implementación del tipo abstracto de datos <code class="docutils literal notranslate"><span class="pre">Vector</span> <span class="pre">Asociativo</span></code><a class="headerlink" href="#implementacion-del-tipo-abstracto-de-datos-vector-asociativo" title="Permalink to this headline">¶</a></h2>
+<p>Una de las colecciones más útiles de Python es el diccionario. Recuerde que un diccionario es un tipo de datos asociativo donde usted puede almacenar parejas clave-valor. La clave se utiliza para buscar el valor de datos asociado. A menudo nos referimos a esta idea como un <strong>vector asociativo o mapa</strong>.</p>
+<p>El tipo abstracto de datos Vector Asociativo se define como sigue. La estructura es una colección no ordenada de asociaciones entre una clave y un valor de datos. Las claves de un vector asociativo son únicas para que exista una relación uno a uno entre una clave y un valor. Las operaciones se dan a continuación.</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">VectorAsociativo()</span></code> Crea un vector asociativo nuevo y vacío. Devuelve una colección vector asociativo vacía.</li>
+<li><code class="docutils literal notranslate"><span class="pre">agregar(clave,valor)</span></code> Agrega una nueva pareja clave-valor al vector asociativo. Si la clave ya está en el vector asociativo, reemplaza el valor anterior por el nuevo.</li>
+<li><code class="docutils literal notranslate"><span class="pre">obtener(clave)</span></code> Dada una clave, devuelva el valor almacenado en el vector asociativo o <code class="docutils literal notranslate"><span class="pre">None</span></code> de lo contrario.</li>
+<li><code class="docutils literal notranslate"><span class="pre">eliminar</span></code> Elimina la pareja clave-valor del vector asociativo utilizando una instrucción de la forma <code class="docutils literal notranslate"><span class="pre">eliminar</span> <span class="pre">VectorAsociativo[clave]</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">tamano()</span></code> Devuelve el número de parejas clave-valor almacenadas en el vector asociativo.</li>
+<li><code class="docutils literal notranslate"><span class="pre">in</span></code> Devuelve <code class="docutils literal notranslate"><span class="pre">True</span></code> para una instrucción de la forma <code class="docutils literal notranslate"><span class="pre">clave</span> <span class="pre">in</span> <span class="pre">VectorAsociativo</span></code>, si la clave dada está en el vector asociativo, <code class="docutils literal notranslate"><span class="pre">False</span></code> de lo contrario.</li>
+</ul>
+<p>Uno de los grandes beneficios de un diccionario es el hecho de que dada una clave, podemos buscar el valor del dato asociado muy rápidamente. Con el fin de proporcionar esta capacidad de búsqueda rápida, necesitamos una implementación que soporte una búsqueda eficiente. Podríamos usar una lista con búsqueda secuencial o binaria, pero sería incluso mejor usar una tabla hash como se ha descrito anteriormente, ya que la búsqueda de un ítem en una tabla hash se acerca a un desempeño <span class="math notranslate nohighlight">\(O(1)\)</span>.</p>
+<p>En el <a class="reference internal" href="#lst-hashtablecodeconstructor"><span class="std std-ref">Programa 2</span></a> utilizamos dos listas para crear una clase <code class="docutils literal notranslate"><span class="pre">TablaHash</span></code> que implementa el tipo abstracto de datos Vector Asociativo. Una lista, llamada <code class="docutils literal notranslate"><span class="pre">ranuras</span></code>, contendrá los ítems que constituyen las claves y una lista paralela, llamada <code class="docutils literal notranslate"><span class="pre">datos</span></code>, almacenará los valores de los datos. Cuando busquemos una clave, la posición correspondiente en la lista de datos contendrá el valor de datos asociado a la clave. Trataremos la lista de claves como una tabla hash utilizando las ideas presentadas anteriormente. Tenga en cuenta que el tamaño inicial de la tabla hash se ha elegido que sea 11. Aunque esto es arbitrario, es importante que el tamaño sea un número primo para que el algoritmo de solución de colisión pueda ser lo más eficiente posible.</p>
+<p id="lst-hashtablecodeconstructor"><strong>Programa 2</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TablaHash</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tamano</span> <span class="o">=</span> <span class="mi">11</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamano</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datos</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">tamano</span>
+</pre></div>
+</div>
+<p>La función <code class="docutils literal notranslate"><span class="pre">funcionHash</span></code> implementa el método simple del residuo. La técnica de solución de colisiones es la prueba lineal con una función rehash “más 1”. La función <code class="docutils literal notranslate"><span class="pre">agregar</span></code> (ver el <a class="reference internal" href="#lst-hashtablecodestore"><span class="std std-ref">Programa 3</span></a>) asume que habrá una ranura vacía a menos que la clave ya esté presente en <code class="docutils literal notranslate"><span class="pre">self.ranuras</span></code>. Dicha función calcula el valor hash original y si esa ranura no está vacía, repite la función <code class="docutils literal notranslate"><span class="pre">rehash</span></code> hasta que aparezca una ranura vacía. Si una ranura no vacía ya contiene la clave, el valor del dato antiguo se reemplaza con el nuevo valor del dato. Hacer frente a la situación en la que no quedan ranuras vacías se deja como un ejercicio.</p>
+<p id="lst-hashtablecodestore"><strong>Programa 3</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">agregar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">clave</span><span class="p">,</span><span class="n">dato</span><span class="p">):</span>
+  <span class="n">valorHash</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcionHash</span><span class="p">(</span><span class="n">clave</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">))</span>
+
+  <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">valorHash</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">valorHash</span><span class="p">]</span> <span class="o">=</span> <span class="n">clave</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">datos</span><span class="p">[</span><span class="n">valorHash</span><span class="p">]</span> <span class="o">=</span> <span class="n">dato</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">valorHash</span><span class="p">]</span> <span class="o">==</span> <span class="n">clave</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">datos</span><span class="p">[</span><span class="n">valorHash</span><span class="p">]</span> <span class="o">=</span> <span class="n">dato</span>  <span class="c1">#reemplazo</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">proximaRanura</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rehash</span><span class="p">(</span><span class="n">valorHash</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">))</span>
+      <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">proximaRanura</span><span class="p">]</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> \
+                      <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">proximaRanura</span><span class="p">]</span> <span class="o">!=</span> <span class="n">clave</span><span class="p">:</span>
+        <span class="n">proximaRanura</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rehash</span><span class="p">(</span><span class="n">proximaRanura</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">))</span>
+
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">proximaRanura</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">proximaRanura</span><span class="p">]</span><span class="o">=</span><span class="n">clave</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datos</span><span class="p">[</span><span class="n">proximaRanura</span><span class="p">]</span><span class="o">=</span><span class="n">dato</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datos</span><span class="p">[</span><span class="n">proximaRanura</span><span class="p">]</span> <span class="o">=</span> <span class="n">dato</span> <span class="c1">#reemplazo</span>
+
+<span class="k">def</span> <span class="nf">funcionHash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">clave</span><span class="p">,</span><span class="n">tamano</span><span class="p">):</span>
+     <span class="k">return</span> <span class="n">clave</span><span class="o">%</span><span class="n">tamano</span>
+
+<span class="k">def</span> <span class="nf">rehash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">hashViejo</span><span class="p">,</span><span class="n">tamano</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">hashViejo</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">tamano</span>
+</pre></div>
+</div>
+<p>Del mismo modo, la función <code class="docutils literal notranslate"><span class="pre">obtener</span></code> (ver <a class="reference internal" href="#lst-hashtablecodesearch"><span class="std std-ref">Programa 4</span></a>) comienza calculando el valor hash inicial. Si el valor no está en la ranura inicial, se usa la función <code class="docutils literal notranslate"><span class="pre">rehash</span></code> para localizar la siguiente posición posible. Observe que la línea 15 garantiza que la búsqueda finalizará comprobando que no hemos regresado a la ranura inicial. Si eso ocurre, hemos agotado todas las ranuras posibles y el ítem no debe estar presente.</p>
+<p>Los métodos finales de la clase <code class="docutils literal notranslate"><span class="pre">TablaHash</span></code> proporcionan funcionalidad adicional de diccionarios. Sobrecargamos los métodos __getitem__ y __setitem__ para permitir el acceso usando <code class="docutils literal notranslate"><span class="pre">[]</span></code>. Esto significa que una vez se ha creado una <code class="docutils literal notranslate"><span class="pre">TablaHash</span></code>, el familiar operador de índización estará disponible. Dejamos los métodos restantes como ejercicios.</p>
+<p id="lst-hashtablecodesearch"><strong>Programa 4</strong></p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">obtener</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">clave</span><span class="p">):</span>
+  <span class="n">ranuraInicio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcionHash</span><span class="p">(</span><span class="n">clave</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">))</span>
+
+  <span class="n">dato</span> <span class="o">=</span> <span class="bp">None</span>
+  <span class="n">parar</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="n">encontrado</span> <span class="o">=</span> <span class="bp">False</span>
+  <span class="n">posicion</span> <span class="o">=</span> <span class="n">ranuraInicio</span>
+  <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">posicion</span><span class="p">]</span> <span class="o">!=</span> <span class="bp">None</span> <span class="ow">and</span>  \
+                       <span class="ow">not</span> <span class="n">encontrado</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">parar</span><span class="p">:</span>
+     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">[</span><span class="n">posicion</span><span class="p">]</span> <span class="o">==</span> <span class="n">clave</span><span class="p">:</span>
+       <span class="n">encontrado</span> <span class="o">=</span> <span class="bp">True</span>
+       <span class="n">dato</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datos</span><span class="p">[</span><span class="n">posicion</span><span class="p">]</span>
+     <span class="k">else</span><span class="p">:</span>
+       <span class="n">posicion</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rehash</span><span class="p">(</span><span class="n">posicion</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ranuras</span><span class="p">))</span>
+       <span class="k">if</span> <span class="n">posicion</span> <span class="o">==</span> <span class="n">ranuraInicio</span><span class="p">:</span>
+           <span class="n">parar</span> <span class="o">=</span> <span class="bp">True</span>
+  <span class="k">return</span> <span class="n">dato</span>
+
+<span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">clave</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">obtener</span><span class="p">(</span><span class="n">clave</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">clave</span><span class="p">,</span><span class="n">dato</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">agregar</span><span class="p">(</span><span class="n">clave</span><span class="p">,</span><span class="n">dato</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>La siguiente sesión muestra la clase <code class="docutils literal notranslate"><span class="pre">TablaHash</span></code> en acción. En primer lugar vamos a crear una tabla hash y a almacenar algunos ítems con claves enteras y valores de datos que sean cadenas de caracteres.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">=</span><span class="n">TablaHash</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">54</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;gato&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;perro&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">93</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;leon&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;tigre&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">77</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;pajaro&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;vaca&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">44</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;cabra&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">55</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;cerdo&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;pollo&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">.</span><span class="n">ranuras</span>
+<span class="go">[77, 44, 55, 20, 26, 93, 17, None, None, 31, 54]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">.</span><span class="n">datos</span>
+<span class="go">[&#39;pajaro&#39;, &#39;cabra&#39;, &#39;cerdo&#39;, &#39;pollo&#39;, &#39;perro&#39;,</span>
+<span class="go"> &#39;leon&#39;, &#39;tigre&#39;, None, None, &#39;vaca&#39;, &#39;gato&#39;]</span>
+</pre></div>
+</div>
+<p>A continuación, accederemos y modificaremos algunos ítems de la tabla hash. Observe que el valor para la clave 20 está siendo reemplazando.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span>
+<span class="go">&#39;pollo&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span>
+<span class="go">&#39;tigre&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span><span class="o">=</span><span class="s1">&#39;pato&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="p">[</span><span class="mi">20</span><span class="p">]</span>
+<span class="go">&#39;pato&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">.</span><span class="n">datos</span>
+<span class="go">[&#39;pajaro&#39;, &#39;cabra&#39;, &#39;cerdo&#39;, &#39;pato&#39;, &#39;perro&#39;,</span>
+<span class="go">  &#39;leon&#39;, &#39;tigre&#39;, None, None, &#39;vaca&#39;, &#39;gato&#39;]</span>
+<span class="go">&gt;&gt; print(H[99])</span>
+<span class="go">None</span>
+</pre></div>
+</div>
+<p>El ejemplo completo de la tabla hash se encuentra en el ActiveCode 1.</p>
+
+<div data-childcomponent="hashtablecomplete" class="runestone explainer ac_section alert alert-warning">
+
+<textarea data-component="activecode" id=hashtablecomplete data-lang="python" 
+    data-hidecode="true"  data-timelimit=25000  data-codelens="true"  
+    data-audio=''     
+         data-caption='Ejemplo completo de la tabla hash' >
+class TablaHash:
+    def __init__(self):
+        self.tamano = 11
+        self.ranuras = [None] * self.tamano
+        self.datos = [None] * self.tamano
+
+    def agregar(self,clave,dato):
+      valorHash = self.funcionHash(clave,len(self.ranuras))
+
+      if self.ranuras[valorHash] == None:
+        self.ranuras[valorHash] = clave
+        self.datos[valorHash] = dato
+      else:
+        if self.ranuras[valorHash] == clave:
+          self.datos[valorHash] = dato  #reemplazo
+        else:
+          proximaRanura = self.rehash(valorHash,len(self.ranuras))
+          while self.ranuras[proximaRanura] != None and \
+                          self.ranuras[proximaRanura] != clave:
+            proximaRanura = self.rehash(proximaRanura,len(self.ranuras))
+
+          if self.ranuras[proximaRanura] == None:
+            self.ranuras[proximaRanura]=clave
+            self.datos[proximaRanura]=dato
+          else:
+            self.datos[proximaRanura] = dato #reemplazo
+
+    def funcionHash(self,clave,tamano):
+         return clave%tamano
+
+    def rehash(self,hashViejo,tamano):
+        return (hashViejo+1)%tamano
+
+    def obtener(self,clave):
+      ranuraInicio = self.funcionHash(clave,len(self.ranuras))
+
+      dato = None
+      parar = False
+      encontrado = False
+      posicion = ranuraInicio
+      while self.ranuras[posicion] != None and  \
+                           not encontrado and not parar:
+         if self.ranuras[posicion] == clave:
+           encontrado = True
+           dato = self.datos[posicion]
+         else:
+           posicion=self.rehash(posicion,len(self.ranuras))
+           if posicion == ranuraInicio:
+               parar = True
+      return dato
+
+    def __getitem__(self,clave):
+        return self.obtener(clave)
+
+    def __setitem__(self,clave,dato):
+        self.agregar(clave,dato)
+
+H=TablaHash()
+H[54]="gato"
+H[26]="perro"
+H[93]="leon"
+H[17]="tigre"
+H[77]="pajaro"
+H[31]="vaca"
+H[44]="cabra"
+H[55]="cerdo"
+H[20]="pollo"
+print(H.ranuras)
+print(H.datos)
+
+print(H[20])
+
+print(H[17])
+H[20]='pato'
+print(H[20])
+print(H[99])
+</textarea>
+</div>
+</div>
+<div class="section" id="analisis-de-la-transformacion-de-claves">
+<h2>5.5.4. Análisis de la transformación de claves<a class="headerlink" href="#analisis-de-la-transformacion-de-claves" title="Permalink to this headline">¶</a></h2>
+<p>Hemos dicho anteriormente que, en el mejor caso, la transformación de claves brindaría una técnica de búsqueda de tiempo constante <span class="math notranslate nohighlight">\(O(1)\)</span>. Sin embargo, debido a las colisiones, el número de comparaciones no suele ser tan simple. A pesar de que un análisis completo de la transformación de claves está más allá del alcance de este texto, podemos indicar algunos resultados bien conocidos que aproximan el número de comparaciones necesarias para buscar un ítem.</p>
+<p>La información más importante que necesitamos para analizar el uso de una tabla hash es el factor de carga, <span class="math notranslate nohighlight">\(\lambda\)</span>. Conceptualmente, si <span class="math notranslate nohighlight">\(\lambda\)</span> es pequeño, entonces hay una menor probabilidad de colisiones, lo que significa que los elementos tienen más probabilidades de estar en las ranuras donde pertenecen. Si <span class="math notranslate nohighlight">\(\lambda\)</span> es grande, lo que significa que la tabla se está llenando, entonces hay más y más colisiones. Esto significa que la solución de colisiones es más difícil, requiriendo más comparaciones para encontrar una ranura vacía. Con el encadenamiento, un incremento en las colisiones significa un incremento en el número de ítems en cada cadena.</p>
+<p>Como antes, tendremos un resultado tanto para una búsqueda exitosa como para una búsqueda sin éxito. Para una búsqueda exitosa usando direccionamiento abierto con prueba lineal, el número promedio de comparaciones es aproximadamente <span class="math notranslate nohighlight">\(\frac{1}{2}\left(1+\frac{1}{1-\lambda}\right)\)</span> y para una búsqueda infructuosa es <span class="math notranslate nohighlight">\(\frac{1}{2}\left(1+\left(\frac{1}{1-\lambda}\right)^2\right)\)</span>. Si estamos utilizando encadenamiento, el número promedio de comparaciones es <span class="math notranslate nohighlight">\(1 + \frac {\lambda}{2}\)</span> para el caso exitoso, y simplemente <span class="math notranslate nohighlight">\(\lambda\)</span> comparaciones si la búsqueda no tiene éxito.</p>
+</div>
+</div>
+
+
+  
+      
+  <li id="relations-prev" class="navLink" title='Previous Section - 5.4. La búsqueda binaria' data-toggle="tooltip">
+    <a href="LaBusquedaBinaria.html" >
+      <i class='prevNav glyphicon glyphicon-chevron-left'></i>
+    </a>
+  </li>
+  <a class="navLinkBg" id="navLinkBgLeft"  href="LaBusquedaBinaria.html" ></a>
+  
+  <li id="relations-next" class="navLink" title='Next Section - 5.6. Ordenamiento' data-toggle="tooltip" >
+    <a href="Ordenamiento.html" >
+      <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right'></i>
+    </a>
+  </li>
+  <a class="navLinkBg navLink" id="navLinkBgRight" href="Ordenamiento.html" >Next Section - 5.6. Ordenamiento</a>
+
+<script type="text/javascript">
+
+  $('#relations-prev').tooltip({'placement':'right', 'selector': '', 'delay': { show: 100, hide: 50}});
+  $('#relations-next').tooltip({'placement':'left', 'selector': '', 'delay': { show: 100, hide: 50}});
+  
+</script>
+  
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      
+      <span id='numuserspan'></span> readers online now | <span class='loggedinuser'></span>
+      
+      | <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014 Brad Miller, David Ranum.
+      Created using <a href="http://runestoneinteractive.org/">Runestone</a> 3.4.5.
+    </p>
+  </div>
+</footer>
+
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32029811-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  </body>
+</html>

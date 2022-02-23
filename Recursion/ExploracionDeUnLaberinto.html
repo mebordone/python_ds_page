@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4.11. Exploración de un laberinto &#8212; Solución de problemas con algoritmos y estructuras de datos</title>
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/parsons.css?v=2F3E13EE" />
+    <link rel="stylesheet" type="text/css" href="../_static/js_lib/prettify.css?v=2A364B6B" />
+    <link rel="stylesheet" type="text/css" href="../_static/video.css?v=-1AC7A4C5" />
+    <link rel="stylesheet" type="text/css" href="../_static/pytutor.css?v=239FC54E" />
+    <link rel="stylesheet" type="text/css" href="../_static/modal-basic.css?v=-75E5BD1C" />
+    <link rel="stylesheet" type="text/css" href="../_static/dragndrop.css?v=-46455F2F" />
+    <link rel="stylesheet" type="text/css" href="../_static/fitb.css?v=3BA0E63E" />
+    <link rel="stylesheet" type="text/css" href="../_static/webgldemo.css?v=B36B48D" />
+    <link rel="stylesheet" type="text/css" href="../_static/webglinteractive.css?v=-6EF20E1F" />
+    <link rel="stylesheet" type="text/css" href="../_static/codemirror.css?v=1CE53237" />
+    <link rel="stylesheet" type="text/css" href="../_static/datafile.css?v=-3E7B1476" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabbedstuff.css?v=424F1CC9" />
+    <link rel="stylesheet" type="text/css" href="../_static/reveal.css?v=4A81D381" />
+    <link rel="stylesheet" type="text/css" href="../_static/showEval.css?v=C6382F3" />
+    <link rel="stylesheet" type="text/css" href="../_static/activecode.css?v=-B8E06A5" />
+    <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=-7F7467D6" />
+    <link rel="stylesheet" type="text/css" href="../_static/matrixeq.css?v=58BC228F" />
+    <link rel="stylesheet" type="text/css" href="../_static/clickable.css?v=58C4E18A" />
+    <link rel="stylesheet" type="text/css" href="../_static/poll.css?v=-1DDF53CD" />
+    <link rel="stylesheet" href="../_static/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/user-highlights.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/runestone-custom-sphinx-bootstrap.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/runestonebase.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js_lib/prettify.js?v=-358176D8"></script>
+    <script type="text/javascript" src="../_static/js_lib/hammer.min.js?v=73056367"></script>
+    <script type="text/javascript" src="../_static/parsons.js?v=-6C1000C7"></script>
+    <script type="text/javascript" src="../_static/timedparsons.js?v=2EEA9E5A"></script>
+    <script type="text/javascript" src="../_static/runestonevideo.js?v=53E888DE"></script>
+    <script type="text/javascript" src="../_static/d3.v2.min.js?v=836E01C"></script>
+    <script type="text/javascript" src="../_static/jquery.ba-bbq.min.js?v=-49B30F58"></script>
+    <script type="text/javascript" src="../_static/jquery.jsPlumb-1.3.10-all-min.js?v=42F9EBEA"></script>
+    <script type="text/javascript" src="../_static/pytutor.js?v=-7D4FDD47"></script>
+    <script type="text/javascript" src="../_static/codelens.js?v=-354132B7"></script>
+    <script type="text/javascript" src="../_static/dragndrop.js?v=2B6403E8"></script>
+    <script type="text/javascript" src="../_static/timeddnd.js?v=378F237E"></script>
+    <script type="text/javascript" src="../_static/fitb.js?v=-71BF18ED"></script>
+    <script type="text/javascript" src="../_static/timedfitb.js?v=2AA17071"></script>
+    <script type="text/javascript" src="../_static/codemirror.js?v=-6B0AAD37"></script>
+    <script type="text/javascript" src="../_static/xml.js?v=236EDFF7"></script>
+    <script type="text/javascript" src="../_static/css.js?v=623153CE"></script>
+    <script type="text/javascript" src="../_static/htmlmixed.js?v=33B91944"></script>
+    <script type="text/javascript" src="../_static/javascript.js?v=6F38CA04"></script>
+    <script type="text/javascript" src="../_static/webglinteractive.js?v=2B768384"></script>
+    <script type="text/javascript" src="../_static/FileSaver.min.js?v=-7BF73669"></script>
+    <script type="text/javascript" src="../_static/Blob.js?v=AEC2447"></script>
+    <script type="text/javascript" src="../_static/skulpt.min.js?v=-238537EB"></script>
+    <script type="text/javascript" src="../_static/skulpt-stdlib.js?v=48A5D93E"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2/build/vega.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@2.5.0/build/vega-lite.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@3.14.0/build/vega-embed.js"></script>
+    <script type="text/javascript" src="../_static/datafile.js?v=3ED1A80C"></script>
+    <script type="text/javascript" src="../_static/shortanswer.js?v=5EB6170D"></script>
+    <script type="text/javascript" src="../_static/timed_shortanswer.js?v=-4C5EE829"></script>
+    <script type="text/javascript" src="../_static/tabbedstuff.js?v=5BE6106"></script>
+    <script type="text/javascript" src="../_static/reveal.js?v=112CBFA2"></script>
+    <script type="text/javascript" src="../_static/showEval.js?v=-3A31F37F"></script>
+    <script type="text/javascript" src="../_static/jquery.highlight.js?v=-E3B6938"></script>
+    <script type="text/javascript" src="../_static/bookfuncs.js?v=21EFC8E1"></script>
+    <script type="text/javascript" src="../_static/python.js?v=14A28F1F"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/CLDRPluralRuleParser.js?v=599B42B0"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.js?v=-775EBCF1"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.messagestore.js?v=-51EA5B5F"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.fallbacks.js?v=-75420181"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.language.js?v=747279FF"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.parser.js?v=7B020E13"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.emitter.js?v=660E85C3"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.emitter.bidi.js?v=54B21948"></script>
+    <script type="text/javascript" src="../_static/activecode-i18n.en.js?v=3FBAE230"></script>
+    <script type="text/javascript" src="../_static/activecode.js?v=-605A8C1F"></script>
+    <script type="text/javascript" src="../_static/clike.js?v=2DCE0756"></script>
+    <script type="text/javascript" src="../_static/timed_activecode.js?v=5150FA78"></script>
+    <script type="text/javascript" src="../_static/mchoice.js?v=-7CD635AB"></script>
+    <script type="text/javascript" src="../_static/timedmc.js?v=-4FEF5BA9"></script>
+    <script type="text/javascript" src="../_static/timed.js?v=6789FE30"></script>
+    <script type="text/javascript" src="../_static/matrixeq.js?v=-29B305A6"></script>
+    <script type="text/javascript" src="../_static/animationbase.js?v=-5FBC3C59"></script>
+    <script type="text/javascript" src="../_static/clickable.js?v=-6A9F19A2"></script>
+    <script type="text/javascript" src="../_static/timedclickable.js?v=-6C6763DD"></script>
+    <script type="text/javascript" src="../_static/poll.js?v=6C59AE9F"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <script type="text/javascript" src="../_static/waypoints.min.js"></script>
+    <script type="text/javascript" src="../_static/rangy-core.js"></script>
+    <script type="text/javascript" src="../_static/rangy-textrange.js"></script>
+    <script type="text/javascript" src="../_static/rangy-cssclassapplier.js"></script>
+    <script type="text/javascript" src="../_static/user-highlights.js"></script>
+    <script type="text/javascript" src="../_static/jquery.idle-timer.js"></script>
+    <script type="text/javascript" src="../_static/processing-1.4.1.min.js"></script>
+    <script type="text/javascript" src="../_static/jquery.hotkey.js"></script>
+    <script type="text/javascript" src="../_static/jquery-migrate-1.2.1.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.12. Programación dinámica" href="ProgramacionDinamica.html" />
+    <link rel="prev" title="4.10. Las torres de Hanoi" href="LasTorresDeHanoi.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<script type="text/javascript">
+  eBookConfig = {};
+  eBookConfig.host = 'https://runestone.academy' ? 'https://runestone.academy' : 'http://127.0.0.1:8000';
+  eBookConfig.app = eBookConfig.host+'/runestone';
+  eBookConfig.ajaxURL = eBookConfig.app+'/ajax/';
+  eBookConfig.course = 'pythoned';
+  eBookConfig.logLevel = 10;
+  eBookConfig.loginRequired = false;
+  eBookConfig.build_info = "pre_spring";
+  eBookConfig.isLoggedIn = false;
+  eBookConfig.useRunestoneServices = true;
+  eBookConfig.python3 = true;
+  eBookConfig.basecourse = 'pythoned';
+  eBookConfig.runestone_version = '3.4.5';
+</script>
+
+<div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+  </head><body>
+
+
+<!-- Begin navbar -->
+<div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+  <div class="container">
+
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type='button' class='navbar-toggle' data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <div>
+        <a class="brand-logo" style='background: transparent url("../_static/img/logo_small.png") no-repeat 0px 0px;' href="/runestone/default/user/login">&nbsp; </a>
+        <a class="navbar-brand" href="../index.html">Solución de problemas con algoritmos y estructuras de datos</a>
+      </div>
+    </div>
+
+    <div class="navbar-collapse collapse navbar-ex1-collapse">
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <li class="divider-vertical"></li>
+
+        <!-- social media dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-share-alt" style="opacity: 0.9"></i>
+          </a>
+          <ul class="dropdown-menu social-menu">
+              <li>
+                <div>
+                  <b>Runestone in social media:</b>
+                </div>
+                <a href="https://twitter.com/iRunestone" class="twitter-follow-button" data-show-count="true">Follow @iRunestone</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <div class="fb-like" data-href="https://www.facebook.com/RunestoneInteractive" data-send="false" data-layout="button_count" data-width="300" data-show-faces="false" data-font="arial"></div>
+              </li>
+
+              <li class="divider"></li>
+              <li>
+                <div>
+                  <b>Help support us:</b>
+                </div>
+                <div>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                  <input type="hidden" name="cmd" value="_s-xclick">
+                  <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAcrkqh1hn3lYqIpfXxNqe1T82EhXzCJGy1yMAmklpyZshyMkfDGe1Bhx+iwyGeoYRTTyphFmP+9M3NyO0+Q5XdHxgZPx/zYjjBxlZHgEV6jhE8bN2fHkkPf0VHfz0a0QQylQOPlKiOTZV7B37Jpk6yM47oVZ1tG/KNm0NkfmB76DELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIi0GmFfOlcjuAgZBbYOo9UO+CpMQa+PYqwsUmUnJvXIImeMeNI3KVTUx5Cfk9gNMo3WzPeiB5IqZo9nRAQ0mf1qL2ecLeB5tidM+lgBUhOxfj3/FecpnVFa0263gp4g+PLw8jzhvVRdUon1K3SeO1Rzh23fIRKwnrD6btt73uwtj0sl3tGd8qz+6GIcwPDdRk9VcUffiBJT/ZagKgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xMzExMDMxMzQxMzFaMCMGCSqGSIb3DQEJBDEWBBRDJF8w+zsMr7FSk+pwinB5f5D4rzANBgkqhkiG9w0BAQEFAASBgHw1LMHpkpaqHIvDGdFE0eG+2mZlmMnUeDCBhQlbc7QMzFQYKTV94NfaebBO4PmNdADe1rq4WidSRZZbE7CzkX9IGENYnBTWY0hb2l0lGdGrJdGeWyV3ekg9WVaFMMumrekds96h3Cx7dGz2kWDzIai2iEXE/qoE+xpkyXAYZNV3-----END PKCS7-----
+                  ">
+                  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                  </form>
+
+                </div>
+              </li>
+          </ul>
+        </li>
+        <!-- end social media dropdown -->
+
+        <li class="divider-vertical"></li>
+
+        <!-- search dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-search" style='opacity:0.9;'></i>
+          </a>
+          <ul class='dropdown-menu'>
+            
+                <li><a href='../index.html'>Table of Contents</a></li>
+            
+            <li><a href='/runestone/static/pythoned/genindex.html'>Book Index</a></li>
+            <li class="divider"></li>
+            <li id="scratch_ac_link"><a href="javascript:ACFactory.toggleScratchActivecode()">Scratch ActiveCode</a></li>
+            <li class="divider"></li>
+            <li style="width: 240px;">
+              <form class="navbar-search" style="margin:10px;" action="../search.html" method="get">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="q" placeholder="Search this book" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" style="margin:0;" type="submit">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                  </span>
+                </div><!-- /input-group -->
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+            </li>
+          </ul>
+        </li>
+        <!-- end search dropdown -->
+
+        <li class="divider-vertical"></li>
+
+        
+        <!-- user account dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-user" style="opacity:0.9;"></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <li><span class='loggedinuser'></span></li>
+            <li class="divider"></li>
+            <li><a href='/runestone/default/courses'>Change Course</a></li>
+            <!--
+            <li class="divider"></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/initiateGroup' id="joinGroupLink">Join a Study Group</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/schedule' id="groupScheduleLink">Group Schedule</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/newschedule' id="newChapterLink">Schedule New Chapter</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/manageGroup' id="manageGroupLink">Manage Group</a></li> -->
+			<li class="divider"></li>
+            <li><a href='https://runestone.academy/runestone/admin/index'>Instructor's Page</a></li>
+            <li><a href='https://runestone.academy/runestone/assignments/index'>Progress Page</a></li>
+            <li class="divider"></li>
+            <li><a href="https://runestone.academy/runestone/default/user/profile" id="profilelink">Edit Profile</a></li>
+            <li><a href="https://runestone.academy/runestone/default/user/change_password" id="passwordlink">Change Password</a></li>
+            <li><a href="https://runestone.academy/runestone/default/user/register" id="registerlink">Register</a></li>
+            <li class='loginout'><a href='#'>Login</a></li> <!-- correct link populated by addNavbarLoginLink() -->
+          </ul>
+        </li>
+        <!-- end user account dropdown -->
+        
+        <li class="divider-vertical"></li>
+
+        <!-- help menu dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-question-sign" style="opacity:0.9;"></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <li><a href='/runestone/static/pythoned/navhelp.html'>Navigation Help</a></li>
+            <li><a href='/runestone/static/overview/instructor.html'>Help for Instructors</a></li>
+            <li class="divider"></li>
+            <li><a href='http://runestoneinteractive.org'>About Runestone</a></li>
+            <li><a href='/runestone/default/reportabug?course=pythoned&page=ExploracionDeUnLaberinto'>Report A Problem</a></li>
+          </ul>
+        </li>
+        <!-- end help menu dropdown -->
+
+        <li class="divider-vertical"></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="divider-vertical"></li>
+        
+          <li class="dropdown globaltoc-container">
+  <a href="../index.html"
+     class="dropdown-toggle"
+     data-toggle="dropdown">Cap&#237;tulos <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+    ><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/toctree.html">1. Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AlgorithmAnalysis/toctree.html">2. Análisis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicDS/toctree.html">3. Estructuras de datos básicas</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="toctree.html">4. Recursividad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SortSearch/toctree.html">5. Ordenamiento y búsqueda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Trees/toctree.html">6. Árboles y algoritmos de árboles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Graphs/toctree.html">7. Grafos y algoritmos de grafos</a></li>
+</ul>
+</ul>
+</li>
+          <li class="divider-vertical"></li>
+        
+        <!--
+        
+          
+  <li id="relations-prev" title="Previous Chapter - 4.10. Las torres de Hanoi" data-toggle="tooltip">
+    <a href="LasTorresDeHanoi.html" >
+      <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
+    </a>
+  </li>
+  
+  <li id="relations-next" title='Next Chapter - 4.12. Programación dinámica' data-toggle="tooltip" >
+    <a href="ProgramacionDinamica.html" >
+      <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
+    </a>
+  </li>
+  <li class="divider-vertical"></li>
+
+<script type="text/javascript">
+  opts = {'placement':'bottom',
+          'selector': '',
+          'delay': { show: 100, hide: 50}
+         };
+
+  $('#relations-prev').tooltip(opts);
+  $('#relations-next').tooltip(opts);
+</script>
+        -->
+        
+          <li></li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container" id="continue-reading"></div>
+
+<div class="container" id="main-content">
+  
+  <div class="section" id="exploracion-de-un-laberinto">
+<h1>4.11. Exploración de un laberinto<a class="headerlink" href="#exploracion-de-un-laberinto" title="Permalink to this headline">¶</a></h1>
+<p>En esta sección examinaremos un problema que tiene relevancia para el mundo en expansión de la robótica: ¿Cómo encontrar la salida de un laberinto? Si usted tiene una aspiradora Roomba para limpiar su habitación (¿no todos los estudiantes universitarios?), deseará que pudiera reprogramarla utilizando lo que ha aprendido en esta sección. El problema que queremos resolver es ayudar a nuestra tortuga a encontrar su salida de un laberinto virtual. El problema del laberinto tiene raíces tan profundas como el mito griego sobre Teseo que fue enviado a un laberinto para matar al minotauro. Teseo usó una madeja de hilo para ayudarse a encontrar su camino de regreso una vez que hubiera eliminado a la bestia. En nuestro problema asumiremos que nuestra tortuga se deja caer en alguna parte en medio del laberinto y debe encontrar su salida. Mire la <a class="reference internal" href="#fig-mazescreen"><span class="std std-ref">Figura 2</span></a> para tener una idea de hacia dónde vamos en esta sección.</p>
+<div class="figure align-center" id="id1">
+<span id="fig-mazescreen"></span><img alt="../_images/maze.png" src="../_images/maze.png" />
+<p class="caption"><span class="caption-text">Figura 2: El programa de búsqueda en un laberinto terminado</span></p>
+<div class="legend">
+Figura 2: El programa de búsqueda en un laberinto terminado</div>
+</div>
+<p>Para que sea más fácil para nosotros, asumiremos que nuestro laberinto está dividido en “cuadrados”. Cada cuadrado del laberinto está abierto u ocupado por una sección de pared. La tortuga sólo puede pasar a través de los cuadrados abiertos del laberinto. Si la tortuga se topa con una pared, debe intentar continuar en una dirección diferente. La tortuga requerirá un procedimiento sistemático para encontrar su salida del laberinto. Aquí está el procedimiento:</p>
+<ul class="simple">
+<li>Desde nuestra posición de partida, primero intentaremos avanzar un cuadrado hacia el Norte y luego recursivamente probaremos nuestro procedimiento desde allí.</li>
+<li>Si no tenemos éxito al intentar un camino hacia el Norte como primer paso, daremos un paso hacia el Sur y repetiremos recursivamente nuestro procedimiento.</li>
+<li>Si ir hacia el Sur no funciona, entonces intentaremos dar un paso hacia el Oeste como nuestro primer paso y aplicaremos nuestro procedimiento recursivamente.</li>
+<li>Si el Norte, el Sur y el Oeste no han tenido éxito, aplicaremos el procedimiento recursivamente desde una posición un paso hacia nuestro Este.</li>
+<li>Si ninguna de estas direcciones funciona entonces no hay manera de salir del laberinto y hemos fracasado.</li>
+</ul>
+<p>Eso suena bastante fácil, sin embargo hay un par de detalles que discutir primero. Supongamos que tomamos nuestro primer paso recursivo al ir hacia el Norte. Siguiendo nuestro procedimiento, nuestro próximo paso sería también hacia el Norte. Pero si el Norte está bloqueado por una pared debemos mirar el siguiente paso del procedimiento e intentar ir hacia el Sur. Desafortunadamente ese paso hacia el Sur nos lleva de regreso a nuestro lugar de partida original. Si aplicamos el procedimiento recursivo desde allí, simplemente regresaremos un paso hacia el Norte y estaremos en un ciclo infinito. Por lo tanto, debemos contar con una estrategia para recordar dónde hemos estado. En este caso vamos a suponer que tenemos una bolsa de migas de pan que podemos dejar caer a lo largo de nuestro camino. Si damos un paso en una dirección determinada y encontramos que ya hay una miga de pan en ese cuadrado, sabemos que debemos retroceder inmediatamente y probar la siguiente dirección en nuestro procedimiento. Como veremos cuando observemos el código de este algoritmo, retroceder es tan simple como regresar desde una llamada recursiva de una función.</p>
+<p>Como hacemos con todos los algoritmos recursivos, revisemos los casos base. Puede que usted ya haya adivinado algunos de ellos con base en la descripción del párrafo anterior. En este algoritmo hay cuatro casos base a considerar:</p>
+<ol class="arabic simple">
+<li>La tortuga se ha topado con una pared. Dado que el cuadrado está ocupado por una pared, no se puede realizar más exploración.</li>
+<li>La tortuga ha encontrado un cuadrado que ya ha sido explorado. No queremos seguir explorando desde esta posición pues entraríamos en un ciclo.</li>
+<li>Hemos encontrado un borde exterior que no está ocupado por una pared. En otras palabras, hemos encontrado una salida del laberinto.</li>
+<li>Hemos explorado un cuadrado sin éxito en las cuatro direcciones.</li>
+</ol>
+<p>Para que nuestro programa funcione, necesitaremos contar con una manera de representar el laberinto. Para hacer esto aún más interesante vamos a utilizar el módulo <code class="docutils literal notranslate"><span class="pre">turtle</span></code> para dibujar y explorar nuestro laberinto de modo que podamos ver este algoritmo en acción. El objeto <code class="docutils literal notranslate"><span class="pre">Laberinto</span></code> proporcionará los siguientes métodos para que los usemos al escribir nuestro algoritmo de búsqueda:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">__init__</span></code> lee en un archivo de datos que representa un laberinto, inicializa la representación interna del laberinto y encuentra la posición inicial para la tortuga.</li>
+<li><code class="docutils literal notranslate"><span class="pre">dibujarLaberinto</span></code> dibuja el laberinto en una ventana en la pantalla.</li>
+<li><code class="docutils literal notranslate"><span class="pre">actualizarPosicion</span></code> actualiza la representación interna del laberinto y cambia la posición de la tortuga en la ventana.</li>
+<li><code class="docutils literal notranslate"><span class="pre">esSalida</span></code> comprueba si la posición actual es una salida del laberinto.</li>
+</ul>
+<p>La clase <code class="docutils literal notranslate"><span class="pre">Laberinto</span></code> también sobrecarga el operador índice <code class="docutils literal notranslate"><span class="pre">[]</span></code> para que nuestro algoritmo pueda acceder fácilmente al estado de cualquier cuadrado particular.</p>
+<p>Examinemos el código de la función de búsqueda que denominamos <code class="docutils literal notranslate"><span class="pre">buscarDesde</span></code>. El código se muestra en el <a class="reference internal" href="#lst-mazesearch"><span class="std std-ref">Programa 3</span></a>. Observe que esta función toma tres parámetros: un objeto laberinto, la fila de inicio y la columna de inicio. Esto es importante porque, como función recursiva, la búsqueda comienza lógicamente otra vez con cada llamada recursiva.</p>
+<p><strong>Programa 3</strong></p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">buscarDesde</span><span class="p">(</span><span class="n">laberinto</span><span class="p">,</span> <span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">):</span>
+    <span class="n">laberinto</span><span class="o">.</span><span class="n">actualizarPosicion</span><span class="p">(</span><span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">)</span>
+   <span class="c1">#  Verificar casos base:</span>
+   <span class="c1">#  1. Hemos tropezado con un obstáculo, devolver False</span>
+   <span class="k">if</span> <span class="n">laberinto</span><span class="p">[</span><span class="n">filaInicio</span><span class="p">][</span><span class="n">columnaInicio</span><span class="p">]</span> <span class="o">==</span> <span class="n">OBSTACULO</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="c1">#  2. Hemos encontrado un cuadrado que ya ha sido explorado</span>
+    <span class="k">if</span> <span class="n">laberinto</span><span class="p">[</span><span class="n">filaInicio</span><span class="p">][</span><span class="n">columnaInicio</span><span class="p">]</span> <span class="o">==</span> <span class="n">INTENTADO</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="c1"># 3. Éxito, un borde exterior no ocupado por un obstáculo</span>
+    <span class="k">if</span> <span class="n">laberinto</span><span class="o">.</span><span class="n">esSalida</span><span class="p">(</span><span class="n">filaInicio</span><span class="p">,</span><span class="n">columnaInicio</span><span class="p">):</span>
+        <span class="n">laberinto</span><span class="o">.</span><span class="n">actualizarPosicion</span><span class="p">(</span><span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">,</span> \
+        <span class="n">PARTE_DEL_CAMINO</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="n">laberinto</span><span class="o">.</span><span class="n">actualizarPosicion</span><span class="p">(</span><span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">,</span> <span class="n">INTENTADO</span><span class="p">)</span>
+
+    <span class="c1"># De lo contrario, use cortocircuitos lógicos para probar cada</span>
+    <span class="c1"># dirección a su vez (si fuera necesario)</span>
+    <span class="n">encontrado</span> <span class="o">=</span> <span class="n">buscarDesde</span><span class="p">(</span><span class="n">laberinto</span><span class="p">,</span> <span class="n">filaInicio</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">)</span> <span class="ow">or</span> \
+            <span class="n">buscarDesde</span><span class="p">(</span><span class="n">laberinto</span><span class="p">,</span> <span class="n">filaInicio</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">)</span> <span class="ow">or</span> \
+            <span class="n">buscarDesde</span><span class="p">(</span><span class="n">laberinto</span><span class="p">,</span> <span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> \
+            <span class="n">buscarDesde</span><span class="p">(</span><span class="n">laberinto</span><span class="p">,</span> <span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">encontrado</span><span class="p">:</span>
+        <span class="n">laberinto</span><span class="o">.</span><span class="n">actualizarPosicion</span><span class="p">(</span><span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">,</span> \
+        <span class="n">PARTE_DEL_CAMINO</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">laberinto</span><span class="o">.</span><span class="n">actualizarPosicion</span><span class="p">(</span><span class="n">filaInicio</span><span class="p">,</span> <span class="n">columnaInicio</span><span class="p">,</span> \
+        <span class="n">CAJELLON_SIN_SALIDA</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">encontrado</span>
+</pre></div>
+</td></tr></table></div>
+<p>Al examinar el algoritmo usted verá que lo primero que hace el código (línea 2) es llamar a <code class="docutils literal notranslate"><span class="pre">actualizarPosicion</span></code>. Ésto se hace simplemente para ayudarle a usted a visualizar el algoritmo de modo que pueda ver exactamente cómo explora la tortuga su camino a través del laberinto. A continuación, el algoritmo comprueba los tres primeros de los cuatro casos base: ¿La tortuga ha chocado contra una pared (línea 5)? ¿La tortuga ha regresado a un cuadrado ya explorado (línea 8)? ¿La tortuga ha encontrado una salida (línea 11)? Si ninguna de estas condiciones es verdadera entonces continuamos la búsqueda recursivamente.</p>
+<p>Usted notará que en el paso recursivo hay cuatro llamadas recursivas a <code class="docutils literal notranslate"><span class="pre">buscarDesde</span></code>. Es difícil predecir cuántas de estas llamadas recursivas se utilizarán, ya que todas ellas están conectadas por instrucciones <code class="docutils literal notranslate"><span class="pre">or</span></code>. Si la primera llamada a <code class="docutils literal notranslate"><span class="pre">buscarDesde</span></code> devuelve <code class="docutils literal notranslate"><span class="pre">True</span></code>, entonces ninguna de las tres últimas llamadas sería necesaria. Esto puede interpretarse como queriendo decir que un paso a <code class="docutils literal notranslate"><span class="pre">(fila-1,</span> <span class="pre">columna)</span></code> (o Norte si se quiere pensar geográficamente) está en el camino hacia la salida del laberinto. Si no hay un buen camino hacia el Norte para salir del laberinto, entonces se intenta la siguiente llamada recursiva, ésta al Sur. Si el Sur falla, se intenta entonces hacia el Oeste y finalmente hacia el Este. Si las cuatro llamadas recursivas devuelven False, entonces hemos encontrado un callejón sin salida. Usted debe descargar o transcribir todo el programa y experimentar con él cambiando el orden de estas llamadas.</p>
+<p>El código de la clase <code class="docutils literal notranslate"><span class="pre">Laberinto</span></code> se muestra en el <a class="reference internal" href="#lst-maze"><span class="std std-ref">Programa 4</span></a>, en el <a class="reference internal" href="#lst-maze1"><span class="std std-ref">Programa 5</span></a> y en el <a class="reference internal" href="#lst-maze2"><span class="std std-ref">Programa 6</span></a>. El método <code class="docutils literal notranslate"><span class="pre">__init__</span></code> toma el nombre de un archivo como su único parámetro. Este archivo es un archivo de texto que representa un laberinto usando caracteres “+” para las paredes, espacios en blanco para los cuadrados abiertos y la letra “S” para indicar la posición de inicio. La <a class="reference internal" href="#fig-exmaze"><span class="std std-ref">Figura 3</span></a> es un ejemplo de un archivo de datos del laberinto. La representación interna del laberinto es una lista de listas. Cada fila de la variable <code class="docutils literal notranslate"><span class="pre">listalaberinto</span></code> también es una lista. Esta lista secundaria contiene un carácter por cada cuadrado utilizando los caracteres descritos anteriormente. Para el archivo de datos en la <a class="reference internal" href="#fig-exmaze"><span class="std std-ref">Figura 3</span></a> la representación interna se parece a la siguiente:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">],</span>
+  <span class="p">[</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;+&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>El método <code class="docutils literal notranslate"><span class="pre">dibujarLaberinto</span></code> utiliza esta representación interna para dibujar en la pantalla la vista inicial del laberinto.</p>
+<p id="fig-exmaze">Figura 3: Un ejemplo del archivo de datos del laberinto</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">++++++++++++++++++++++</span>
+<span class="o">+</span>   <span class="o">+</span>   <span class="o">++</span> <span class="o">++</span>     <span class="o">+</span>
+<span class="o">+</span> <span class="o">+</span>   <span class="o">+</span>       <span class="o">+++</span> <span class="o">+</span> <span class="o">++</span>
+<span class="o">+</span> <span class="o">+</span> <span class="o">+</span>  <span class="o">++</span>  <span class="o">++++</span>   <span class="o">+</span> <span class="o">++</span>
+<span class="o">+++</span> <span class="o">++++++</span>    <span class="o">+++</span> <span class="o">+</span>  <span class="o">+</span>
+<span class="o">+</span>          <span class="o">++</span>  <span class="o">++</span>    <span class="o">+</span>
+<span class="o">+++++</span> <span class="o">++++++</span>   <span class="o">+++++</span> <span class="o">+</span>
+<span class="o">+</span>     <span class="o">+</span>   <span class="o">+++++++</span>  <span class="o">+</span> <span class="o">+</span>
+<span class="o">+</span> <span class="o">+++++++</span>      <span class="n">S</span> <span class="o">+</span>   <span class="o">+</span>
+<span class="o">+</span>                <span class="o">+</span> <span class="o">+++</span>
+<span class="o">++++++++++++++++++</span> <span class="o">+++</span>
+</pre></div>
+</div>
+<p>El método <code class="docutils literal notranslate"><span class="pre">actualizarPosicion</span></code>, como se muestra en el <a class="reference internal" href="#lst-maze1"><span class="std std-ref">Programa 5</span></a>, utiliza la misma representación interna para ver si la tortuga se ha encontrado con una pared. También actualiza la representación interna con un “.” o un “-” para indicar que la tortuga ha visitado un cuadrado particular o si el cuadrado es parte de un callejón sin salida. Además, el método <code class="docutils literal notranslate"><span class="pre">actualizarPosicion</span></code> utiliza dos métodos auxiliares, <code class="docutils literal notranslate"><span class="pre">moverTortuga</span></code> y <code class="docutils literal notranslate"><span class="pre">tirarMigaDePan</span></code>, para actualizar la vista en la pantalla.</p>
+<p>Finalmente, el método <code class="docutils literal notranslate"><span class="pre">esSalida</span></code> utiliza la posición actual de la tortuga para probar una condición de salida. Una condición de salida se da cuando la tortuga ha navegado hasta el borde del laberinto, ya sea la fila cero o la columna cero, o la columna de la derecha o la fila inferior.</p>
+<p id="lst-maze"><strong>Programa 4</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Laberinto</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">nombreArchivoLaberinto</span><span class="p">):</span>
+        <span class="n">filasEnLaberinto</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">columnasEnLaberinto</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listaLaberinto</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">archivoLaberinto</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">nombreArchivoLaberinto</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">filasEnLaberinto</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">linea</span> <span class="ow">in</span> <span class="n">archivoLaberinto</span><span class="p">:</span>
+            <span class="n">listaFila</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">columna</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">caracter</span> <span class="ow">in</span> <span class="n">linea</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">listaFila</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">caracter</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">caracter</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">filaInicio</span> <span class="o">=</span> <span class="n">filasEnLaberinto</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">columnaInicio</span> <span class="o">=</span> <span class="n">columna</span>
+                <span class="n">columna</span> <span class="o">=</span> <span class="n">columna</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">filasEnLaberinto</span> <span class="o">=</span> <span class="n">filasEnLaberinto</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">listaLaberinto</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">listaFila</span><span class="p">)</span>
+            <span class="n">columnasEnLaberinto</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">listaFila</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">filasEnLaberinto</span> <span class="o">=</span> <span class="n">filasEnLaberinto</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnasEnLaberinto</span> <span class="o">=</span> <span class="n">columnasEnLaberinto</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xTranslate</span> <span class="o">=</span> <span class="o">-</span><span class="n">columnasEnLaberinto</span><span class="o">/</span><span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yTranslate</span> <span class="o">=</span> <span class="n">filasEnLaberinto</span><span class="o">/</span><span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">Turtle</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="s1">&#39;turtle&#39;</span><span class="p">)</span>
+        <span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+        <span class="n">setworldcoordinates</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">columnasEnLaberinto</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="o">-</span><span class="p">(</span><span class="n">filasEnLaberinto</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">columnasEnLaberinto</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+.</span><span class="mi">5</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">filasEnLaberinto</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">+.</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p id="lst-maze1"><strong>Programa 5</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dibujarLaberinto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filasEnLaberinto</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnasEnLaberinto</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">listaLaberinto</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">OBSTACULO</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dibujarCajaCentrada</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">xTranslate</span><span class="p">,</span>
+                                     <span class="o">-</span><span class="n">y</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">yTranslate</span><span class="p">,</span>
+                                     <span class="s1">&#39;tan&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">dibujarCajaCentrada</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">color</span><span class="p">):</span>
+    <span class="n">tracer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">up</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">x</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span><span class="n">y</span><span class="o">-.</span><span class="mi">5</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">color</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">color</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">setheading</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">down</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">begin_fill</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">end_fill</span><span class="p">()</span>
+    <span class="n">update</span><span class="p">()</span>
+    <span class="n">tracer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">moverTortuga</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">up</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">setheading</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">towards</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">xTranslate</span><span class="p">,</span>
+                                     <span class="o">-</span><span class="n">y</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">yTranslate</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">xTranslate</span><span class="p">,</span><span class="o">-</span><span class="n">y</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">yTranslate</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tirarMigaDePan</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">color</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">actualizarPosicion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fila</span><span class="p">,</span><span class="n">columna</span><span class="p">,</span><span class="n">val</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">val</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listaLaberinto</span><span class="p">[</span><span class="n">fila</span><span class="p">][</span><span class="n">columna</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">moverTortuga</span><span class="p">(</span><span class="n">columna</span><span class="p">,</span><span class="n">fila</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">PARTE_DEL_CAMINO</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
+    <span class="k">elif</span> <span class="n">val</span> <span class="o">==</span> <span class="n">OBSTACULO</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+    <span class="k">elif</span> <span class="n">val</span> <span class="o">==</span> <span class="n">INTENTADO</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span>
+    <span class="k">elif</span> <span class="n">val</span> <span class="o">==</span> <span class="n">CAJELLON_SIN_SALIDA</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="n">color</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tirarMigaDePan</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+</pre></div>
+</div>
+<p id="lst-maze2"><strong>Programa 6</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">esSalida</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">fila</span><span class="p">,</span><span class="n">columna</span><span class="p">):</span>
+     <span class="k">return</span> <span class="p">(</span><span class="n">fila</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span>
+             <span class="n">fila</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">filasEnLaberinto</span><span class="o">-</span><span class="mi">1</span> <span class="ow">or</span>
+             <span class="n">columna</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span>
+             <span class="n">columna</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">columnasEnLaberinto</span><span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">indice</span><span class="p">):</span>
+     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">listaLaberinto</span><span class="p">[</span><span class="n">indice</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>El programa completo se muestra en el ActiveCode 1. Este programa utiliza el archivo de datos <code class="docutils literal notranslate"><span class="pre">laberinto2.txt</span></code> que se muestra a continuación. Tenga en cuenta que es un archivo de ejemplo mucho más simple en que la salida está muy cerca de la posición inicial de la tortuga.</p>
+      <pre id="laberinto2.txt">
+++++++++++++++++++++++
++   +   ++ ++        +
+      +     ++++++++++
++ +    ++  ++++ +++ ++
++ +   + + ++    +++  +
++          ++  ++  + +
++++++ + +      ++  + +
++++++ +++  + +  ++   +
++          + + S+ +  +
++++++ +  + + +     + +
+++++++++++++++++++++++
+  </pre>
+<div data-childcomponent="completemaze" class="runestone explainer ac_section alert alert-warning">
+
+<textarea data-component="activecode" id=completemaze data-lang="python" 
+      data-timelimit=off    
+    data-audio=''     
+         data-caption='Solucionador completo del laberinto' >
+import turtle
+
+PARTE_DEL_CAMINO = 'O'
+INTENTADO = '.'
+OBSTACULO = '+'
+CAJELLON_SIN_SALIDA = '-'
+
+class Laberinto:
+    def __init__(self,nombreArchivoLaberinto):
+        filasEnLaberinto = 0
+        columnasEnLaberinto = 0
+        self.listaLaberinto = []
+        archivoLaberinto = open(nombreArchivoLaberinto,'r')
+        filasEnLaberinto = 0
+        for linea in archivoLaberinto:
+            listaFila = []
+            columna = 0
+            for caracter in linea[:-1]:
+                listaFila.append(caracter)
+                if caracter == 'S':
+                    self.filaInicio = filasEnLaberinto
+                    self.columnaInicio = columna
+                columna = columna + 1
+            filasEnLaberinto = filasEnLaberinto + 1
+            self.listaLaberinto.append(listaFila)
+            columnasEnLaberinto = len(listaFila)
+
+        self.filasEnLaberinto = filasEnLaberinto
+        self.columnasEnLaberinto = columnasEnLaberinto
+        self.xTranslate = -columnasEnLaberinto/2
+        self.yTranslate = filasEnLaberinto/2
+        self.t = turtle.Turtle()
+        self.t.shape('turtle')
+        self.wn = turtle.Screen()
+        self.wn.setworldcoordinates(-(columnasEnLaberinto-1)/2-.5,-(filasEnLaberinto-1)/2-.5,(columnasEnLaberinto-1)/2+.5,(filasEnLaberinto-1)/2+.5)
+
+    def dibujarLaberinto(self):
+        self.t.speed(10)
+        self.wn.tracer(0)
+        for y in range(self.filasEnLaberinto):
+            for x in range(self.columnasEnLaberinto):
+                if self.listaLaberinto[y][x] == OBSTACULO:
+                    self.dibujarCajaCentrada(x+self.xTranslate,-y+self.yTranslate,'orange')
+        self.t.color('black')
+        self.t.fillcolor('blue')
+        self.wn.update()
+        self.wn.tracer(1)
+
+    def dibujarCajaCentrada(self,x,y,color):
+        self.t.up()
+        self.t.goto(x-.5,y-.5)
+        self.t.color(color)
+        self.t.fillcolor(color)
+        self.t.setheading(90)
+        self.t.down()
+        self.t.begin_fill()
+        for i in range(4):
+            self.t.forward(1)
+            self.t.right(90)
+        self.t.end_fill()
+
+    def moverTortuga(self,x,y):
+        self.t.up()
+        self.t.setheading(self.t.towards(x+self.xTranslate,-y+self.yTranslate))
+        self.t.goto(x+self.xTranslate,-y+self.yTranslate)
+
+    def tirarMigaDePan(self,color):
+        self.t.dot(10,color)
+
+    def actualizarPosicion(self,fila,columna,val=None):
+        if val:
+            self.listaLaberinto[fila][columna] = val
+        self.moverTortuga(columna,fila)
+
+        if val == PARTE_DEL_CAMINO:
+            color = 'green'
+        elif val == OBSTACULO:
+            color = 'red'
+        elif val == INTENTADO:
+            color = 'black'
+        elif val == CAJELLON_SIN_SALIDA:
+            color = 'red'
+        else:
+            color = None
+
+        if color:
+            self.tirarMigaDePan(color)
+
+    def esSalida(self,fila,columna):
+        return (fila == 0 or
+                fila == self.filasEnLaberinto-1 or
+                columna == 0 or
+                columna == self.columnasEnLaberinto-1 )
+
+    def __getitem__(self,indice):
+        return self.listaLaberinto[indice]
+
+
+def buscarDesde(laberinto, filaInicio, columnaInicio):
+    laberinto.actualizarPosicion(filaInicio, columnaInicio)
+   #  Verificar casos base:
+   #  1. Hemos tropezado con un obstáculo, devolver False
+    if laberinto[filaInicio][columnaInicio] == OBSTACULO :
+        return False
+    #  2. Hemos encontrado un cuadrado que ya ha sido explorado
+    if laberinto[filaInicio][columnaInicio] == INTENTADO:
+        return False
+    # 3. Éxito, un borde exterior no ocupado por un obstáculo
+    if laberinto.esSalida(filaInicio,columnaInicio):
+        laberinto.actualizarPosicion(filaInicio, columnaInicio, PARTE_DEL_CAMINO)
+        return True
+    laberinto.actualizarPosicion(filaInicio, columnaInicio, INTENTADO)
+
+    # De lo contrario, use cortocircuitos lógicos para probar cada
+    # dirección a su vez (si fuera necesario)
+    encontrado = buscarDesde(laberinto, filaInicio-1, columnaInicio) or \
+            buscarDesde(laberinto, filaInicio+1, columnaInicio) or \
+            buscarDesde(laberinto, filaInicio, columnaInicio-1) or \
+            buscarDesde(laberinto, filaInicio, columnaInicio+1)
+    if encontrado:
+        laberinto.actualizarPosicion(filaInicio, columnaInicio, PARTE_DEL_CAMINO)
+    else:
+        laberinto.actualizarPosicion(filaInicio, columnaInicio, CAJELLON_SIN_SALIDA)
+    return encontrado
+
+miLaberinto = Laberinto('laberinto2.txt')
+miLaberinto.dibujarLaberinto()
+miLaberinto.actualizarPosicion(miLaberinto.filaInicio,miLaberinto.columnaInicio)
+
+buscarDesde(miLaberinto, miLaberinto.filaInicio, miLaberinto.columnaInicio)
+</textarea>
+</div>
+<div class="admonition-autoevaluacion admonition">
+<p class="first admonition-title">Autoevaluación</p>
+<p class="last">Modifique el programa de búsqueda en un laberinto para que las llamadas a buscarDesde se encuentren en un orden diferente. Vea la ejecución del programa. ¿Puede usted explicar por qué el comportamiento es diferente? ¿Puede usted predecir qué camino seguirá la tortuga para un cambio dado del orden?</p>
+</div>
+</div>
+
+
+  
+      
+  <li id="relations-prev" class="navLink" title='Previous Section - 4.10. Las torres de Hanoi' data-toggle="tooltip">
+    <a href="LasTorresDeHanoi.html" >
+      <i class='prevNav glyphicon glyphicon-chevron-left'></i>
+    </a>
+  </li>
+  <a class="navLinkBg" id="navLinkBgLeft"  href="LasTorresDeHanoi.html" ></a>
+  
+  <li id="relations-next" class="navLink" title='Next Section - 4.12. Programación dinámica' data-toggle="tooltip" >
+    <a href="ProgramacionDinamica.html" >
+      <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right'></i>
+    </a>
+  </li>
+  <a class="navLinkBg navLink" id="navLinkBgRight" href="ProgramacionDinamica.html" >Next Section - 4.12. Programación dinámica</a>
+
+<script type="text/javascript">
+
+  $('#relations-prev').tooltip({'placement':'right', 'selector': '', 'delay': { show: 100, hide: 50}});
+  $('#relations-next').tooltip({'placement':'left', 'selector': '', 'delay': { show: 100, hide: 50}});
+  
+</script>
+  
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      
+      <span id='numuserspan'></span> readers online now | <span class='loggedinuser'></span>
+      
+      | <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014 Brad Miller, David Ranum.
+      Created using <a href="http://runestoneinteractive.org/">Runestone</a> 3.4.5.
+    </p>
+  </div>
+</footer>
+
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32029811-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4.7. Visualización de la recursividad &#8212; Solución de problemas con algoritmos y estructuras de datos</title>
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-3.0.0/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/parsons.css?v=2F3E13EE" />
+    <link rel="stylesheet" type="text/css" href="../_static/js_lib/prettify.css?v=2A364B6B" />
+    <link rel="stylesheet" type="text/css" href="../_static/video.css?v=-1AC7A4C5" />
+    <link rel="stylesheet" type="text/css" href="../_static/pytutor.css?v=239FC54E" />
+    <link rel="stylesheet" type="text/css" href="../_static/modal-basic.css?v=-75E5BD1C" />
+    <link rel="stylesheet" type="text/css" href="../_static/dragndrop.css?v=-46455F2F" />
+    <link rel="stylesheet" type="text/css" href="../_static/fitb.css?v=3BA0E63E" />
+    <link rel="stylesheet" type="text/css" href="../_static/webgldemo.css?v=B36B48D" />
+    <link rel="stylesheet" type="text/css" href="../_static/webglinteractive.css?v=-6EF20E1F" />
+    <link rel="stylesheet" type="text/css" href="../_static/codemirror.css?v=1CE53237" />
+    <link rel="stylesheet" type="text/css" href="../_static/datafile.css?v=-3E7B1476" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabbedstuff.css?v=424F1CC9" />
+    <link rel="stylesheet" type="text/css" href="../_static/reveal.css?v=4A81D381" />
+    <link rel="stylesheet" type="text/css" href="../_static/showEval.css?v=C6382F3" />
+    <link rel="stylesheet" type="text/css" href="../_static/activecode.css?v=-B8E06A5" />
+    <link rel="stylesheet" type="text/css" href="../_static/accessibility.css?v=-7F7467D6" />
+    <link rel="stylesheet" type="text/css" href="../_static/matrixeq.css?v=58BC228F" />
+    <link rel="stylesheet" type="text/css" href="../_static/clickable.css?v=58C4E18A" />
+    <link rel="stylesheet" type="text/css" href="../_static/poll.css?v=-1DDF53CD" />
+    <link rel="stylesheet" href="../_static/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/user-highlights.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/runestone-custom-sphinx-bootstrap.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/runestonebase.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js_lib/prettify.js?v=-358176D8"></script>
+    <script type="text/javascript" src="../_static/js_lib/hammer.min.js?v=73056367"></script>
+    <script type="text/javascript" src="../_static/parsons.js?v=-6C1000C7"></script>
+    <script type="text/javascript" src="../_static/timedparsons.js?v=2EEA9E5A"></script>
+    <script type="text/javascript" src="../_static/runestonevideo.js?v=53E888DE"></script>
+    <script type="text/javascript" src="../_static/d3.v2.min.js?v=836E01C"></script>
+    <script type="text/javascript" src="../_static/jquery.ba-bbq.min.js?v=-49B30F58"></script>
+    <script type="text/javascript" src="../_static/jquery.jsPlumb-1.3.10-all-min.js?v=42F9EBEA"></script>
+    <script type="text/javascript" src="../_static/pytutor.js?v=-7D4FDD47"></script>
+    <script type="text/javascript" src="../_static/codelens.js?v=-354132B7"></script>
+    <script type="text/javascript" src="../_static/dragndrop.js?v=2B6403E8"></script>
+    <script type="text/javascript" src="../_static/timeddnd.js?v=378F237E"></script>
+    <script type="text/javascript" src="../_static/fitb.js?v=-71BF18ED"></script>
+    <script type="text/javascript" src="../_static/timedfitb.js?v=2AA17071"></script>
+    <script type="text/javascript" src="../_static/codemirror.js?v=-6B0AAD37"></script>
+    <script type="text/javascript" src="../_static/xml.js?v=236EDFF7"></script>
+    <script type="text/javascript" src="../_static/css.js?v=623153CE"></script>
+    <script type="text/javascript" src="../_static/htmlmixed.js?v=33B91944"></script>
+    <script type="text/javascript" src="../_static/javascript.js?v=6F38CA04"></script>
+    <script type="text/javascript" src="../_static/webglinteractive.js?v=2B768384"></script>
+    <script type="text/javascript" src="../_static/FileSaver.min.js?v=-7BF73669"></script>
+    <script type="text/javascript" src="../_static/Blob.js?v=AEC2447"></script>
+    <script type="text/javascript" src="../_static/skulpt.min.js?v=-238537EB"></script>
+    <script type="text/javascript" src="../_static/skulpt-stdlib.js?v=48A5D93E"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@4.0.0-rc.2/build/vega.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@2.5.0/build/vega-lite.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@3.14.0/build/vega-embed.js"></script>
+    <script type="text/javascript" src="../_static/datafile.js?v=3ED1A80C"></script>
+    <script type="text/javascript" src="../_static/shortanswer.js?v=5EB6170D"></script>
+    <script type="text/javascript" src="../_static/timed_shortanswer.js?v=-4C5EE829"></script>
+    <script type="text/javascript" src="../_static/tabbedstuff.js?v=5BE6106"></script>
+    <script type="text/javascript" src="../_static/reveal.js?v=112CBFA2"></script>
+    <script type="text/javascript" src="../_static/showEval.js?v=-3A31F37F"></script>
+    <script type="text/javascript" src="../_static/jquery.highlight.js?v=-E3B6938"></script>
+    <script type="text/javascript" src="../_static/bookfuncs.js?v=21EFC8E1"></script>
+    <script type="text/javascript" src="../_static/python.js?v=14A28F1F"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/CLDRPluralRuleParser.js?v=599B42B0"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.js?v=-775EBCF1"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.messagestore.js?v=-51EA5B5F"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.fallbacks.js?v=-75420181"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.language.js?v=747279FF"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.parser.js?v=7B020E13"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.emitter.js?v=660E85C3"></script>
+    <script type="text/javascript" src="../_static/jquery_i18n/jquery.i18n.emitter.bidi.js?v=54B21948"></script>
+    <script type="text/javascript" src="../_static/activecode-i18n.en.js?v=3FBAE230"></script>
+    <script type="text/javascript" src="../_static/activecode.js?v=-605A8C1F"></script>
+    <script type="text/javascript" src="../_static/clike.js?v=2DCE0756"></script>
+    <script type="text/javascript" src="../_static/timed_activecode.js?v=5150FA78"></script>
+    <script type="text/javascript" src="../_static/mchoice.js?v=-7CD635AB"></script>
+    <script type="text/javascript" src="../_static/timedmc.js?v=-4FEF5BA9"></script>
+    <script type="text/javascript" src="../_static/timed.js?v=6789FE30"></script>
+    <script type="text/javascript" src="../_static/matrixeq.js?v=-29B305A6"></script>
+    <script type="text/javascript" src="../_static/animationbase.js?v=-5FBC3C59"></script>
+    <script type="text/javascript" src="../_static/clickable.js?v=-6A9F19A2"></script>
+    <script type="text/javascript" src="../_static/timedclickable.js?v=-6C6763DD"></script>
+    <script type="text/javascript" src="../_static/poll.js?v=6C59AE9F"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="../_static/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <script type="text/javascript" src="../_static/waypoints.min.js"></script>
+    <script type="text/javascript" src="../_static/rangy-core.js"></script>
+    <script type="text/javascript" src="../_static/rangy-textrange.js"></script>
+    <script type="text/javascript" src="../_static/rangy-cssclassapplier.js"></script>
+    <script type="text/javascript" src="../_static/user-highlights.js"></script>
+    <script type="text/javascript" src="../_static/jquery.idle-timer.js"></script>
+    <script type="text/javascript" src="../_static/processing-1.4.1.min.js"></script>
+    <script type="text/javascript" src="../_static/jquery.hotkey.js"></script>
+    <script type="text/javascript" src="../_static/jquery-migrate-1.2.1.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4.8. El triángulo de Sierpinski" href="pythondsElTrianguloDeSierpinski.html" />
+    <link rel="prev" title="4.6. Marcos de pila: Implementación de la recursividad" href="MarcosDePilaImplementacionDeLaRecursividad.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<script type="text/javascript">
+  eBookConfig = {};
+  eBookConfig.host = 'https://runestone.academy' ? 'https://runestone.academy' : 'http://127.0.0.1:8000';
+  eBookConfig.app = eBookConfig.host+'/runestone';
+  eBookConfig.ajaxURL = eBookConfig.app+'/ajax/';
+  eBookConfig.course = 'pythoned';
+  eBookConfig.logLevel = 10;
+  eBookConfig.loginRequired = false;
+  eBookConfig.build_info = "pre_spring";
+  eBookConfig.isLoggedIn = false;
+  eBookConfig.useRunestoneServices = true;
+  eBookConfig.python3 = true;
+  eBookConfig.basecourse = 'pythoned';
+  eBookConfig.runestone_version = '3.4.5';
+</script>
+
+<div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&status=0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+  </head><body>
+
+
+<!-- Begin navbar -->
+<div id="navbar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+  <div class="container">
+
+    <div class="navbar-header">
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type='button' class='navbar-toggle' data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <div>
+        <a class="brand-logo" style='background: transparent url("../_static/img/logo_small.png") no-repeat 0px 0px;' href="/runestone/default/user/login">&nbsp; </a>
+        <a class="navbar-brand" href="../index.html">Solución de problemas con algoritmos y estructuras de datos</a>
+      </div>
+    </div>
+
+    <div class="navbar-collapse collapse navbar-ex1-collapse">
+
+      <ul class="nav navbar-nav navbar-right">
+
+        <li class="divider-vertical"></li>
+
+        <!-- social media dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-share-alt" style="opacity: 0.9"></i>
+          </a>
+          <ul class="dropdown-menu social-menu">
+              <li>
+                <div>
+                  <b>Runestone in social media:</b>
+                </div>
+                <a href="https://twitter.com/iRunestone" class="twitter-follow-button" data-show-count="true">Follow @iRunestone</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <div class="fb-like" data-href="https://www.facebook.com/RunestoneInteractive" data-send="false" data-layout="button_count" data-width="300" data-show-faces="false" data-font="arial"></div>
+              </li>
+
+              <li class="divider"></li>
+              <li>
+                <div>
+                  <b>Help support us:</b>
+                </div>
+                <div>
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                  <input type="hidden" name="cmd" value="_s-xclick">
+                  <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+                  ">
+                  <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                  <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                  </form>
+
+                </div>
+              </li>
+          </ul>
+        </li>
+        <!-- end social media dropdown -->
+
+        <li class="divider-vertical"></li>
+
+        <!-- search dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-search" style='opacity:0.9;'></i>
+          </a>
+          <ul class='dropdown-menu'>
+            
+                <li><a href='../index.html'>Table of Contents</a></li>
+            
+            <li><a href='/runestone/static/pythoned/genindex.html'>Book Index</a></li>
+            <li class="divider"></li>
+            <li id="scratch_ac_link"><a href="javascript:ACFactory.toggleScratchActivecode()">Scratch ActiveCode</a></li>
+            <li class="divider"></li>
+            <li style="width: 240px;">
+              <form class="navbar-search" style="margin:10px;" action="../search.html" method="get">
+                <div class="input-group">
+                  <input type="text" class="form-control" name="q" placeholder="Search this book" />
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" style="margin:0;" type="submit">
+                      <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                  </span>
+                </div><!-- /input-group -->
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+            </li>
+          </ul>
+        </li>
+        <!-- end search dropdown -->
+
+        <li class="divider-vertical"></li>
+
+        
+        <!-- user account dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-user" style="opacity:0.9;"></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <li><span class='loggedinuser'></span></li>
+            <li class="divider"></li>
+            <li><a href='/runestone/default/courses'>Change Course</a></li>
+            <!--
+            <li class="divider"></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/initiateGroup' id="joinGroupLink">Join a Study Group</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/schedule' id="groupScheduleLink">Group Schedule</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/newschedule' id="newChapterLink">Schedule New Chapter</a></li>
+            <li><a href='https://runestone.academy/runestone/mygroup/manageGroup' id="manageGroupLink">Manage Group</a></li> -->
+			<li class="divider"></li>
+            <li><a href='https://runestone.academy/runestone/admin/index'>Instructor's Page</a></li>
+            <li><a href='https://runestone.academy/runestone/assignments/index'>Progress Page</a></li>
+            <li class="divider"></li>
+            <li><a href="https://runestone.academy/runestone/default/user/profile" id="profilelink">Edit Profile</a></li>
+            <li><a href="https://runestone.academy/runestone/default/user/change_password" id="passwordlink">Change Password</a></li>
+            <li><a href="https://runestone.academy/runestone/default/user/register" id="registerlink">Register</a></li>
+            <li class='loginout'><a href='#'>Login</a></li> <!-- correct link populated by addNavbarLoginLink() -->
+          </ul>
+        </li>
+        <!-- end user account dropdown -->
+        
+        <li class="divider-vertical"></li>
+
+        <!-- help menu dropdown -->
+        <li class="dropdown">
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-question-sign" style="opacity:0.9;"></i>
+          </a>
+          <ul class="dropdown-menu user-menu">
+            <li><a href='/runestone/static/pythoned/navhelp.html'>Navigation Help</a></li>
+            <li><a href='/runestone/static/overview/instructor.html'>Help for Instructors</a></li>
+            <li class="divider"></li>
+            <li><a href='http://runestoneinteractive.org'>About Runestone</a></li>
+            <li><a href='/runestone/default/reportabug?course=pythoned&page=pythondsintro-VisualizacionDeLaRecursividad'>Report A Problem</a></li>
+          </ul>
+        </li>
+        <!-- end help menu dropdown -->
+
+        <li class="divider-vertical"></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="divider-vertical"></li>
+        
+          <li class="dropdown globaltoc-container">
+  <a href="../index.html"
+     class="dropdown-toggle"
+     data-toggle="dropdown">Cap&#237;tulos <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+    ><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/toctree.html">1. Introducción</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AlgorithmAnalysis/toctree.html">2. Análisis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../BasicDS/toctree.html">3. Estructuras de datos básicas</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="toctree.html">4. Recursividad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SortSearch/toctree.html">5. Ordenamiento y búsqueda</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Trees/toctree.html">6. Árboles y algoritmos de árboles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Graphs/toctree.html">7. Grafos y algoritmos de grafos</a></li>
+</ul>
+</ul>
+</li>
+          <li class="divider-vertical"></li>
+        
+        <!--
+        
+          
+  <li id="relations-prev" title="Previous Chapter - 4.6. Marcos de pila: Implementación de la recursividad" data-toggle="tooltip">
+    <a href="MarcosDePilaImplementacionDeLaRecursividad.html" >
+      <i class='glyphicon glyphicon-backward' style='opacity:0.9;'></i>
+    </a>
+  </li>
+  
+  <li id="relations-next" title='Next Chapter - 4.8. El triángulo de Sierpinski' data-toggle="tooltip" >
+    <a href="pythondsElTrianguloDeSierpinski.html" >
+      <i class='glyphicon glyphicon-forward' style='opacity:0.9;'></i>
+    </a>
+  </li>
+  <li class="divider-vertical"></li>
+
+<script type="text/javascript">
+  opts = {'placement':'bottom',
+          'selector': '',
+          'delay': { show: 100, hide: 50}
+         };
+
+  $('#relations-prev').tooltip(opts);
+  $('#relations-next').tooltip(opts);
+</script>
+        -->
+        
+          <li></li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container" id="continue-reading"></div>
+
+<div class="container" id="main-content">
+  
+  <div class="section" id="visualizacion-de-la-recursividad">
+<h1>4.7. Visualización de la recursividad<a class="headerlink" href="#visualizacion-de-la-recursividad" title="Permalink to this headline">¶</a></h1>
+<p>En la sección anterior examinamos algunos problemas que eran fáciles de resolver mediante la recursividad; sin embargo, todavía puede ser difícil encontrar un modelo mental o una forma de visualizar lo que está sucediendo en una función recursiva. Esto puede dificultar la comprensión de la recursividad. En esta sección examinaremos un par de ejemplos de uso de la recursividad para dibujar algunas imágenes interesantes. A medida que usted observe cómo toman forma estas imágenes, obtendrá una nueva perspectiva del proceso recursivo que puede ser útil para consolidar su comprensión de la recursividad.</p>
+<p>La herramienta que utilizaremos para nuestras ilustraciones es el módulo gráfico de Python llamado <code class="docutils literal notranslate"><span class="pre">turtle</span></code> (<em>tortuga</em>). El módulo <code class="docutils literal notranslate"><span class="pre">turtle</span></code> es estándar en todas las versiones de Python y es muy fácil de usar. La metáfora es bastante simple. Usted puede crear una tortuga y la tortuga puede moverse hacia delante, hacia atrás, girar a la izquierda, girar a la derecha, etc. La tortuga puede tener su cola hacia arriba o hacia abajo. Cuando la cola de la tortuga está hacia abajo y la tortuga se mueve, dibuja una línea a medida que se desplaza. Para aumentar el valor artístico de la tortuga usted puede cambiar el ancho de la cola, así como el color de la tinta en el que la cola se empapa.</p>
+<p>Aquí daremos un ejemplo sencillo para ilustrar algunos conceptos básicos de los gráficos con el módulo <code class="docutils literal notranslate"><span class="pre">turtle</span></code>. Utilizaremos el módulo para dibujar una espiral recursivamente. El <a class="reference internal" href="#lst-turt1"><span class="std std-ref">ActiveCode 1</span></a> muestra cómo se hace. Después de importar el módulo <code class="docutils literal notranslate"><span class="pre">turtle</span></code> creamos una tortuga. Cuando creamos la tortuga también creamos una ventana para que ella dibuje adentro. A continuación definimos la función dibujarEspiral. El caso base para esta función simple se da cuando la longitud de la línea que queremos dibujar, dada por el parámetro <code class="docutils literal notranslate"><span class="pre">len</span></code>, se reduce a cero o menos. Si la longitud de la línea es mayor que cero, indicamos a la tortuga que siga adelante por <code class="docutils literal notranslate"><span class="pre">len</span></code> unidades  y luego gire a la derecha 90 grados. El paso recursivo ocurre cuando llamamos dibujarEspiral de nuevo con una longitud reducida. Al final del <a class="reference internal" href="#lst-turt1"><span class="std std-ref">ActiveCode 1</span></a> notará que llamamos a la función <code class="docutils literal notranslate"><span class="pre">miVentana.exitonclick()</span></code>, este es un método práctico de la ventana que pone a la tortuga en un modo de espera hasta que usted haga clic dentro de la ventana, después de lo cual el programa la limpia y cierra.</p>
+
+<div data-childcomponent="lst_turt1" class="runestone explainer ac_section alert alert-warning">
+
+<textarea data-component="activecode" id=lst_turt1 data-lang="python" 
+      data-timelimit=25000    
+    data-audio=''     
+         data-caption='Dibujar una espiral recursiva usando el módulo turtle' >
+import turtle
+
+miTortuga = turtle.Turtle()
+miVentana = turtle.Screen()
+
+def dibujarEspiral(miTortuga, longitudLinea):
+    if longitudLinea > 0:
+        miTortuga.forward(longitudLinea)
+        miTortuga.right(90)
+        dibujarEspiral(miTortuga,longitudLinea-5)
+
+dibujarEspiral(miTortuga,100)
+miVentana.exitonclick()
+</textarea>
+</div>
+<p>Eso es realmente todo lo que usted necesita saber respecto a los gráficos con el módulo <code class="docutils literal notranslate"><span class="pre">turtle</span></code> para hacer algunos dibujos bastante impresionantes. Para nuestro próximo programa vamos a dibujar un árbol fractal. Los fractales vienen de una rama de las matemáticas, y tienen mucho en común con la recursividad. La definición de un fractal implica que, que cuando usted lo mira, el fractal tiene la misma forma básica no importa cuánto lo magnifique. Algunos ejemplos de la naturaleza son las costas de los continentes, los copos de nieve, las montañas, e incluso los árboles o arbustos. La naturaleza fractal de muchos de estos fenómenos naturales hace posible que los programadores generen paisajes muy realistas para películas generadas por computadora. En nuestro próximo ejemplo generaremos un árbol fractal.</p>
+<p>Para entender cómo va a funcionar esto es útil pensar en cómo podríamos describir un árbol usando un vocabulario fractal. Recuerde que hemos dicho anteriormente que un fractal es algo que se ve igual en todos los diferentes niveles de ampliación. Si traducimos esto a árboles y arbustos podríamos decir que incluso una pequeña ramita tiene la misma forma y características que un árbol entero. Usando esta idea podríamos decir que un <em>árbol</em> es un tronco, con un <em>árbol</em> más pequeño que va a la derecha y otro árbol <em>más pequeño</em> que va a la izquierda. Si usted piensa en esta definición recursivamente, ella significa que vamos a aplicar la definición recursiva de un árbol a los dos árboles más pequeños de izquierda y derecha.</p>
+<p>Vamos a traducir esta idea a un código en Python. El <a class="reference internal" href="#lst-fractree"><span class="std std-ref">Programa 1</span></a> muestra cómo podemos utilizar nuestra tortuga para generar un árbol fractal. Veamos el código un poco más de cerca. Usted verá que en las líneas 5 y 7 estamos haciendo una llamada recursiva. En la línea 5 hacemos la llamada recursiva justo después de que la tortuga gire 20 grados a la derecha; éste es el árbol derecho mencionado anteriormente. Luego en la línea 7 la tortuga hace otra llamada recursiva, pero esta vez después de girar 40 grados a la izquierda. La razón por la que la tortuga debe girar 40 grados a la izquierda es que necesita deshacer el giro original de 20 grados a la derecha y luego hacer un giro adicional de 20 grados a la izquierda para dibujar el árbol izquierdo. Observe también que cada vez que hacemos una llamada recursiva a <code class="docutils literal notranslate"><span class="pre">arbol</span></code> restaremos algo del parámetro <code class="docutils literal notranslate"><span class="pre">longitudRama</span></code>; esto es para asegurarnos de que los árboles recursivos se hagan más y más pequeños. Usted también debe reconocer la instrucción inicial <code class="docutils literal notranslate"><span class="pre">if</span></code> en la línea 2 como una verificación para el caso base que consiste en que el valor de <code class="docutils literal notranslate"><span class="pre">longitudRama</span></code> se vuelva demasiado pequeño.</p>
+<p id="lst-fractree"><strong>Programa 1</strong></p>
+<div class="highlight-python notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">arbol</span><span class="p">(</span><span class="n">longitudRama</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">longitudRama</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">longitudRama</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">arbol</span><span class="p">(</span><span class="n">longitudRama</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">left</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+        <span class="n">arbol</span><span class="p">(</span><span class="n">longitudRama</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">right</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">longitudRama</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>El programa completo para este ejemplo de árbol se muestra en el <a class="reference internal" href="#lst-complete-tree"><span class="std std-ref">ActiveCode 2</span></a>. Antes de ejecutar el código, piense en cómo espera usted ver que el árbol irá tomando forma. Mire las llamadas recursivas y piense en cómo se desarrollará este árbol. ¿Se dibujará simétricamente con las mitades derecha e izquierda del árbol tomando forma simultáneamente? ¿Será dibujado el lado derecho primero y depués el lado izquierdo?</p>
+
+<div data-childcomponent="lst_complete_tree" class="runestone explainer ac_section alert alert-warning">
+
+<textarea data-component="activecode" id=lst_complete_tree data-lang="python" 
+      data-timelimit=25000    
+    data-audio=''     
+         data-caption='Dibujar un árbol recursivamente' >
+import turtle
+
+def arbol(longitudRama,t):
+    if longitudRama > 5:
+        t.forward(longitudRama)
+        t.right(20)
+        arbol(longitudRama-15,t)
+        t.left(40)
+        arbol(longitudRama-15,t)
+        t.right(20)
+        t.backward(longitudRama)
+
+def main():
+    t = turtle.Turtle()
+    miVentana = turtle.Screen()
+    t.left(90)
+    t.up()
+    t.backward(100)
+    t.down()
+    t.color("green")
+    arbol(75,t)
+    miVentana.exitonclick()
+
+main()
+</textarea>
+</div>
+<p>Observe cómo cada punto de ramificación en el árbol corresponde a una llamada recursiva, y note cómo el árbol se dibuja por la derecha hasta llegar a su rama más corta. Puede ver esto en la <a class="reference internal" href="#fig-tree1"><span class="std std-ref">Figura 1</span></a>. Ahora, observe cómo el programa regresa al tronco sólo después que se ha dibujado todo el lado derecho del árbol. La mitad derecha del árbol puede verse en la <a class="reference internal" href="#fig-tree2"><span class="std std-ref">Figura 2</span></a>. Luego se dibuja el lado izquierdo del árbol, pero no yendo tan lejos hacia la izquierda como es posible. Más bien, una vez más, todo el lado derecho del árbol izquierdo se dibuja hasta que finalmente llegamos a la ramita más pequeña de la izquierda.</p>
+<div class="figure align-center" id="id1">
+<span id="fig-tree1"></span><img alt="../_images/tree1.png" src="../_images/tree1.png" />
+<p class="caption"><span class="caption-text">Figura 1: El comienzo de un árbol fractal</span></p>
+<div class="legend">
+Figura 1: El comienzo de un árbol fractal</div>
+</div>
+<div class="figure align-center" id="id2">
+<span id="fig-tree2"></span><img alt="../_images/tree2.png" src="../_images/tree2.png" />
+<p class="caption"><span class="caption-text">Figura 2: La primera mitad del árbol</span></p>
+<div class="legend">
+Figura 2: La primera mitad del árbol</div>
+</div>
+<p>Este sencillo programa para dibujar un árbol es sólo un punto de partida para usted; notará además que el árbol no parece particularmente realista porque la naturaleza no es tan simétrica como un programa de computadora. Los ejercicios al final del capítulo le darán algunas ideas sobre cómo explorar algunas opciones interesantes para hacer que su árbol parezca más realista.</p>
+<div class="admonition-autoevaluacion admonition">
+<p class="first admonition-title">Autoevaluación</p>
+<p>Modifique el programa de árbol recursivo utilizando una o todas las ideas siguientes:</p>
+<ul class="simple">
+<li>Modifique el grosor de las ramas para que a medida que el valor de <code class="docutils literal notranslate"><span class="pre">longitudRama</span></code> se haga más pequeño, la línea se haga más delgada.</li>
+<li>Modifique el color de las ramas de modo que cuando el valor de <code class="docutils literal notranslate"><span class="pre">longitudRama</span></code> se vuelva muy pequeño se coloree como una hoja.</li>
+<li>Modifique el ángulo utilizado para girar la tortuga de manera que en cada punto de ramificación el ángulo se seleccione aleatoriamente dentro de algún rango. Por ejemplo, elija el ángulo entre 15 y 45 grados. Haga ensayos para ver si luce bien.</li>
+<li>Modifique el valor de <code class="docutils literal notranslate"><span class="pre">longitudRama</span></code> recursivamente para que en vez de restar siempre la misma cantidad, usted reste una cantidad aleatoria dentro de algún rango.</li>
+</ul>
+
+<div data-childcomponent="recursion_sc_3" class="runestone explainer ac_section alert alert-warning">
+
+<textarea data-component="activecode" id=recursion_sc_3 data-lang="python" 
+    data-hidecode="true"  data-timelimit=25000 data-coach="true"   
+    data-audio=''     
+        data-gradebutton=true  >
+
+
+</textarea>
+</div>
+</div>
+</div>
+
+
+  
+      
+  <li id="relations-prev" class="navLink" title='Previous Section - 4.6. Marcos de pila: Implementación de la recursividad' data-toggle="tooltip">
+    <a href="MarcosDePilaImplementacionDeLaRecursividad.html" >
+      <i class='prevNav glyphicon glyphicon-chevron-left'></i>
+    </a>
+  </li>
+  <a class="navLinkBg" id="navLinkBgLeft"  href="MarcosDePilaImplementacionDeLaRecursividad.html" ></a>
+  
+  <li id="relations-next" class="navLink" title='Next Section - 4.8. El triángulo de Sierpinski' data-toggle="tooltip" >
+    <a href="pythondsElTrianguloDeSierpinski.html" >
+      <i id="relationsNextIcon" class='nextNav glyphicon glyphicon-chevron-right'></i>
+    </a>
+  </li>
+  <a class="navLinkBg navLink" id="navLinkBgRight" href="pythondsElTrianguloDeSierpinski.html" >Next Section - 4.8. El triángulo de Sierpinski</a>
+
+<script type="text/javascript">
+
+  $('#relations-prev').tooltip({'placement':'right', 'selector': '', 'delay': { show: 100, hide: 50}});
+  $('#relations-next').tooltip({'placement':'left', 'selector': '', 'delay': { show: 100, hide: 50}});
+  
+</script>
+  
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      
+      <span id='numuserspan'></span> readers online now | <span class='loggedinuser'></span>
+      
+      | <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2014 Brad Miller, David Ranum.
+      Created using <a href="http://runestoneinteractive.org/">Runestone</a> 3.4.5.
+    </p>
+  </div>
+</footer>
+
+
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-32029811-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+  </body>
+</html>
